@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="css/freemarker.css" rel="stylesheet">
-    <title>Document</title>
+    <title>Список книг</title>
 </head>
 <body>
 <div><h1>Список книг</h1></div>
 <div class="table flex flex-col">
     <div class="header flex">
         <div class="column">
-            ##
+            ID
         </div>
         <div class="column">
             Название
@@ -22,39 +22,35 @@
         <div class="column">
             Статус
         </div>
-        <div class="column">
-            Дата выдачи
-        </div>
-        <div class="column">
-            Кому выдана
-        </div>
-        <div class="column">
-            Дата возврата
-        </div>
+<!--        <div class="column">-->
+<!--            Дата выдачи-->
+<!--        </div>-->
+<!--        <div class="column">-->
+<!--            Кому выдана-->
+<!--        </div>-->
+<!--        <div class="column">-->
+<!--            Дата возврата-->
+<!--        </div>-->
     </div>
-    <#list customers as customer>
-    <div class="row ${customer?item_parity} flex">
+    <#list books as book>
+    <div class="row ${book?item_parity} flex">
+<!--        <div class="column">-->
+<!--            ${book?counter}-->
+<!--        </div>-->
         <div class="column">
-            ${customer?counter}
+            ${book.id!"-- не указано --"}
         </div>
         <div class="column">
-            ${customer.firstName!"-- не указано --"}
+            <a href="${book.link!"#"}">${book.name!"-- не указано --"}</a>
+
         </div>
         <div class="column">
-            ${customer.lastName!"-- не указано --"}
+            ${book.author!"-- не указано --"}
         </div>
         <div class="column">
-            ${customer.middleName!"-- не указано --"}
+            ${book.status!"-- не указано --"}
         </div>
-        <div class="column">
-            ${customer.emailConfirmed?string("подтверждён", "не подтверждён")}
-        </div>
-        <div class="column">
-            ${customer?item_parity}
-        </div>
-        <div class="column">
-            ${customer?item_parity}
-        </div>
+
     </div>
 </#list>
 </div>

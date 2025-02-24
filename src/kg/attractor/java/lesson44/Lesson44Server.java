@@ -5,12 +5,14 @@ import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateExceptionHandler;
+import kg.attractor.java.models.Book;
 import kg.attractor.java.server.BasicServer;
 import kg.attractor.java.server.ContentType;
 import kg.attractor.java.server.ResponseCodes;
 
 import java.io.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +23,7 @@ public class Lesson44Server extends BasicServer {
     public Lesson44Server(String host, int port) throws IOException {
         super(host, port);
         registerGet("/books", this::freemarkerSampleHandler);
+        registerGet("/book", this::freemarkerSampleHandler);
     }
 
     private static Configuration initFreeMarker() {
@@ -45,7 +48,14 @@ public class Lesson44Server extends BasicServer {
     }
 
     private void freemarkerSampleHandler(HttpExchange exchange) {
-        renderTemplate(exchange, "books.html", getSampleDataModel());
+        Object model = getBookList();
+        if (exchange.getRequestURI().getPath().equals("/book")) model = getBookInfo();
+//        if (exchange.getRequestURI().getPath().equals("/books")) model = getBookList();
+        renderTemplate(exchange, getFileNameHTML(exchange.getRequestURI().getPath()), model);
+    }
+
+    private String getFileNameHTML(String uri) {
+        return uri.substring(uri.indexOf("/")) + ".html";
     }
 
     protected void renderTemplate(HttpExchange exchange, String templateFile, Object dataModel) {
@@ -79,16 +89,31 @@ public class Lesson44Server extends BasicServer {
         }
     }
 
-    private Map<String, Object> getSampleDataModel() {
-        // возвращаем экземпляр тестовой модели-данных
-        // которую freemarker будет использовать для наполнения шаблона
-//        return new SampleDataModel();
-        Map<String, Object> data = new HashMap<>();
-        data.put("user", new SampleDataModel.User("Apache", "Freemarker"));
-        data.put("currentDateTime", LocalDateTime.now());
-        data.put("customers", List.of(new SampleDataModel.User("Marco"),
-                new SampleDataModel.User("Winston", "Duarte"),
-                new SampleDataModel.User("Amos", "Burton", "Timmy")));
-        return data;
+    private Map<String, List<Book>> getBookList() {
+        List<Book> books = getExampleBooks();
+        Map<String, List<Book>> f = new HashMap<>();
+        f.put("books", books);
+
+        return f;
+    }
+
+    private Map<String, Book> getBookInfo() {
+        Map<String, Book> f = new HashMap<>();
+        f.put("book", getExampleBooks().getFirst());
+
+        return f;
+    }
+
+    private List<Book> getExampleBooks() {
+        List<Book> books = new ArrayList<>();
+        books.add(new Book(1, "Война и мир", "Лев толстый", "Выдана", "нет", "book/war-and-peace",
+                "Война и мир» — огромная сага, с равной глубиной рассказывающая о событиях различного масштаба: \n" +
+                        "от частной жизни нескольких семей и конкретных сражений 1812 года до движения народов и истории вообще. \n" +
+                        "Благодаря масштабу замысла, точности психологических наблюдений и жанровой универсальности эпопея Толстого \n" +
+                        "остаётся в культурной памяти главным русским романом"));
+        books.add(new Book(2, "Колобок", "Пушкин", "На месте", "нет"));
+        books.add(new Book(3, "Игра престолов", "Никита", "Выдана", "нет"));
+        return books;
+
     }
 }
