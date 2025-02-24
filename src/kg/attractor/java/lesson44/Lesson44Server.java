@@ -10,13 +10,17 @@ import kg.attractor.java.server.ContentType;
 import kg.attractor.java.server.ResponseCodes;
 
 import java.io.*;
+import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Lesson44Server extends BasicServer {
     private final static Configuration freemarker = initFreeMarker();
 
     public Lesson44Server(String host, int port) throws IOException {
         super(host, port);
-        registerGet("/sample", this::freemarkerSampleHandler);
+        registerGet("/books", this::freemarkerSampleHandler);
     }
 
     private static Configuration initFreeMarker() {
@@ -41,7 +45,7 @@ public class Lesson44Server extends BasicServer {
     }
 
     private void freemarkerSampleHandler(HttpExchange exchange) {
-        renderTemplate(exchange, "sample.html", getSampleDataModel());
+        renderTemplate(exchange, "books.html", getSampleDataModel());
     }
 
     protected void renderTemplate(HttpExchange exchange, String templateFile, Object dataModel) {
@@ -75,9 +79,16 @@ public class Lesson44Server extends BasicServer {
         }
     }
 
-    private SampleDataModel getSampleDataModel() {
+    private Map<String, Object> getSampleDataModel() {
         // возвращаем экземпляр тестовой модели-данных
         // которую freemarker будет использовать для наполнения шаблона
-        return new SampleDataModel();
+//        return new SampleDataModel();
+        Map<String, Object> data = new HashMap<>();
+        data.put("user", new SampleDataModel.User("Apache", "Freemarker"));
+        data.put("currentDateTime", LocalDateTime.now());
+        data.put("customers", List.of(new SampleDataModel.User("Marco"),
+                new SampleDataModel.User("Winston", "Duarte"),
+                new SampleDataModel.User("Amos", "Burton", "Timmy")));
+        return data;
     }
 }

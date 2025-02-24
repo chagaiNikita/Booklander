@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/freemarker.css" rel="stylesheet">
+    <title>Document</title>
+</head>
+<body>
+<div><h1>Список книг</h1></div>
+<div class="table flex flex-col">
+    <div class="header flex">
+        <div class="column">
+            ##
+        </div>
+        <div class="column">
+            Название
+        </div>
+        <div class="column">
+            Автор
+        </div>
+        <div class="column">
+            Статус
+        </div>
+        <div class="column">
+            Дата выдачи
+        </div>
+        <div class="column">
+            Кому выдана
+        </div>
+        <div class="column">
+            Дата возврата
+        </div>
+    </div>
+    <#list customers as customer>
+    <div class="row ${customer?item_parity} flex">
+        <div class="column">
+            ${customer?counter}
+        </div>
+        <div class="column">
+            ${customer.firstName!"-- не указано --"}
+        </div>
+        <div class="column">
+            ${customer.lastName!"-- не указано --"}
+        </div>
+        <div class="column">
+            ${customer.middleName!"-- не указано --"}
+        </div>
+        <div class="column">
+            ${customer.emailConfirmed?string("подтверждён", "не подтверждён")}
+        </div>
+        <div class="column">
+            ${customer?item_parity}
+        </div>
+        <div class="column">
+            ${customer?item_parity}
+        </div>
+    </div>
+</#list>
+</div>
+</body>
+</html>

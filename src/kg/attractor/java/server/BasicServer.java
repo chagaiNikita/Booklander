@@ -86,7 +86,7 @@ public abstract class BasicServer {
                 respond404(exchange);
                 return;
             }
-            var data = Files.readAllBytes(pathToFile);
+            var data  = Files.readAllBytes(pathToFile);
             sendByteData(exchange, ResponseCodes.OK, contentType, data);
         } catch (IOException e) {
             e.printStackTrace();
