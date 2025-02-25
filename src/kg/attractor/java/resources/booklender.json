@@ -1,0 +1,76 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "fullName": "Michael",
+      "currentBooks": [
+        {
+          "id": 1,
+          "name": "Война и мир",
+          "author": "Лев Толстой",
+          "photo": "images/0002-min-png.png",
+          "status": "Выдана",
+          "description": "Война и мир» — огромная сага",
+          "link": "book",
+          "issueDate": "2020-12-11",
+          "userName": "Michael"
+        }
+      ],
+      "pastBooks": [
+        {
+          "id": 2,
+          "name": "Колобок",
+          "author": "Алексей Толстой",
+          "photo": "images/0002-min-png.png",
+          "status": "На месте",
+          "description": "Колобок описание",
+          "link": "book"
+        },
+        {
+          "id": 3,
+          "name": "Игра престолов",
+          "author": "Джордж Мартин",
+          "photo": "images/0002-min-png.png",
+          "status": "Выдана",
+          "description": "Игра престолов» (англ. A Game of Thrones) — роман в жанре фэнтези",
+          "link": "book",
+          "issueDate": "2023-05-01",
+          "userName": "Nikita"
+        }
+      ]
+    }
+  ],
+  "books": [
+    {
+      "id": 1,
+      "name": "Война и мир",
+      "author": "Лев Толстой",
+      "photo": "images/0002-min-png.png",
+      "status": "Выдана",
+      "description": "Война и мир» — огромная сага",
+      "link": "book",
+      "issueDate": "2020-12-11",
+      "userName": "Michael"
+    },
+    {
+      "id": 2,
+      "name": "Колобок",
+      "author": "Алексей Толстой",
+      "photo": "images/0002-min-png.png",
+      "status": "На месте",
+      "description": "Колобок описание",
+      "link": "book"
+    },
+    {
+      "id": 3,
+      "name": "Игра престолов",
+      "author": "Джордж Мартин",
+      "photo": "images/0002-min-png.png",
+      "status": "Выдана",
+      "description": "Игра престолов» (англ. A Game of Thrones) — роман в жанре фэнтези",
+      "link": "book",
+      "issueDate": "2023-05-01",
+      "userName": "Nikita"
+    }
+  ]
+}

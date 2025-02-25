@@ -15,7 +15,6 @@ import kg.attractor.java.util.FileUtil;
 
 import java.io.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -29,6 +28,7 @@ public class Lesson44Server extends BasicServer {
         super(host, port);
         registerGet("/books", this::freemarkerSampleHandler);
         registerGet("/book", this::freemarkerSampleHandler);
+        registerGet("/employee", this::freemarkerSampleHandler);
     }
 
     private static Configuration initFreeMarker() {
@@ -53,11 +53,14 @@ public class Lesson44Server extends BasicServer {
     }
 
     private void freemarkerSampleHandler(HttpExchange exchange) {
-        Object model = getBookList();
-        if (exchange.getRequestURI().getPath().equals("/book")) model = getBookInfo();
-//        if (exchange.getRequestURI().getPath().equals("/books")) model = getBookList();
+        Object model = getModel(exchange);
         renderTemplate(exchange, getFileNameHTML(exchange.getRequestURI().getPath()), model);
-        FileUtil.writeTasksToFile(bookLender);
+        FileUtil.writeToFile(bookLender);
+    }
+    private Object getModel(HttpExchange exchange) {
+        if (exchange.getRequestURI().getPath().equals("/book")) return getBookInfo();
+        if (exchange.getRequestURI().getPath().equals("/employee")) return getEmployeeInfo();
+        else return getBookList();
     }
 
     private String getFileNameHTML(String uri) {
@@ -112,14 +115,19 @@ public class Lesson44Server extends BasicServer {
         return f;
     }
 
+    private Map<String, Object> getEmployeeInfo() {
+        Map<String, Object> employee = new HashMap<>();
+        employee.put("user", getExampleUsers().getFirst());
+        employee.put("currentBooks", getExampleUsers().getFirst().getCurrentBooks());
+        employee.put("pastBooks", getExampleUsers().getFirst().getPastBooks());
+        return employee;
+    }
+
     private List<Book> getExampleBooks() {
         List<Book> books = new ArrayList<>();
         books.add(new Book(1, "Война и мир", "images/0002-min-png.png", "Лев Толстой", "Выдана", "book",
-                "Война и мир» — огромная сага, с равной глубиной рассказывающая о событиях различного масштаба: \n" +
-                        "от частной жизни нескольких семей и конкретных сражений 1812 года до движения народов и истории вообще. \n" +
-                        "Благодаря масштабу замысла, точности психологических наблюдений и жанровой универсальности эпопея Толстого \n" +
-                        "остаётся в культурной памяти главным русским романом", LocalDate.of(2020, 12, 11), "Michael"));
-        books.add(new Book(2, "Колобок", "images/0002-min-png.png" , "Пушкин", "На месте", "book", "Колобок описание", null, null));
+                "Война и мир» — огромная сага", LocalDate.of(2020, 12, 11), "Michael"));
+        books.add(new Book(2, "Колобок", "images/0002-min-png.png" , "Алексей Толстой", "На месте", "book", "Колобок описание", null, null));
         books.add(new Book(3, "Игра престолов", "images/0002-min-png.png", "Джордж Мартин", "Выдана", "book", "Игра престолов» (англ. A Game of Thrones) — роман в жанре фэнтези", LocalDate.of(2023, 5, 1), "Nikita"));
         bookLender.setBooks(books);
 
@@ -129,7 +137,15 @@ public class Lesson44Server extends BasicServer {
 
     private List<User> getExampleUsers() {
         List<User> users = new ArrayList<>();
-        users.add(new User(1, "Michael", getExampleBooks(), getExampleBooks()));
+        List<Book> books = getExampleBooks();
+        List<Book> currentBook = books.stream()
+                .filter(b -> b.getUserName() != null)
+                .filter(book -> book.getUserName().equals("Michael"))
+                        .toList();
+        List<Book> pastBooks = new ArrayList<>();
+        pastBooks.add(books.get(1));
+        pastBooks.add(books.get(2));
+        users.add(new User(1, "Michael", currentBook, pastBooks));
         bookLender.setUsers(users);
         return users;
     }

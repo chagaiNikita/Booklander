@@ -7,6 +7,11 @@ public class User {
     private String fullName;
     private List<Book> currentBooks;
     private List<Book> pastBooks;
+    private String link;
+
+    public String getLink() {
+        return link;
+    }
 
     public int getId() {
         return id;
