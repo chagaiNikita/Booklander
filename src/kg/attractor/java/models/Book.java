@@ -50,13 +50,6 @@ public class Book {
         return status;
     }
 
-//    public Book(int id, String name, String author, String status, String photo) {
-//        this.id = id;
-//        this.name = name;
-//        this.author = author;
-//        this.status = status;
-//        this.photo = photo;
-//    }
 
     public String getLink() {
         return link;
