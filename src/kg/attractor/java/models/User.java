@@ -8,4 +8,26 @@ public class User {
     private List<Book> currentBooks;
     private List<Book> pastBooks;
 
+    public int getId() {
+        return id;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public List<Book> getCurrentBooks() {
+        return currentBooks;
+    }
+
+    public List<Book> getPastBooks() {
+        return pastBooks;
+    }
+
+    public User(int id, String fullName, List<Book> currentBooks, List<Book> pastBooks) {
+        this.id = id;
+        this.fullName = fullName;
+        this.currentBooks = currentBooks;
+        this.pastBooks = pastBooks;
+    }
 }

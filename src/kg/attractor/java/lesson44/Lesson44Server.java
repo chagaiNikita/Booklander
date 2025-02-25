@@ -6,11 +6,15 @@ import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateExceptionHandler;
 import kg.attractor.java.models.Book;
+import kg.attractor.java.models.BookLender;
+import kg.attractor.java.models.User;
 import kg.attractor.java.server.BasicServer;
 import kg.attractor.java.server.ContentType;
 import kg.attractor.java.server.ResponseCodes;
+import kg.attractor.java.util.FileUtil;
 
 import java.io.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,6 +23,7 @@ import java.util.Map;
 
 public class Lesson44Server extends BasicServer {
     private final static Configuration freemarker = initFreeMarker();
+    private BookLender bookLender = new BookLender();
 
     public Lesson44Server(String host, int port) throws IOException {
         super(host, port);
@@ -52,6 +57,7 @@ public class Lesson44Server extends BasicServer {
         if (exchange.getRequestURI().getPath().equals("/book")) model = getBookInfo();
 //        if (exchange.getRequestURI().getPath().equals("/books")) model = getBookList();
         renderTemplate(exchange, getFileNameHTML(exchange.getRequestURI().getPath()), model);
+        FileUtil.writeTasksToFile(bookLender);
     }
 
     private String getFileNameHTML(String uri) {
@@ -91,6 +97,8 @@ public class Lesson44Server extends BasicServer {
 
     private Map<String, List<Book>> getBookList() {
         List<Book> books = getExampleBooks();
+        bookLender.setBooks(books);
+//        FileUtil.writeTasksToFile(bookLender);
         Map<String, List<Book>> f = new HashMap<>();
         f.put("books", books);
 
@@ -106,14 +114,23 @@ public class Lesson44Server extends BasicServer {
 
     private List<Book> getExampleBooks() {
         List<Book> books = new ArrayList<>();
-        books.add(new Book(1, "Война и мир", "Лев толстый", "Выдана", "нет", "book/war-and-peace",
+        books.add(new Book(1, "Война и мир", "images/0002-min-png.png", "Лев Толстой", "Выдана", "book",
                 "Война и мир» — огромная сага, с равной глубиной рассказывающая о событиях различного масштаба: \n" +
                         "от частной жизни нескольких семей и конкретных сражений 1812 года до движения народов и истории вообще. \n" +
                         "Благодаря масштабу замысла, точности психологических наблюдений и жанровой универсальности эпопея Толстого \n" +
-                        "остаётся в культурной памяти главным русским романом"));
-        books.add(new Book(2, "Колобок", "Пушкин", "На месте", "нет"));
-        books.add(new Book(3, "Игра престолов", "Никита", "Выдана", "нет"));
+                        "остаётся в культурной памяти главным русским романом", LocalDate.of(2020, 12, 11), "Michael"));
+        books.add(new Book(2, "Колобок", "images/0002-min-png.png" , "Пушкин", "На месте", "book", "Колобок описание", null, null));
+        books.add(new Book(3, "Игра престолов", "images/0002-min-png.png", "Джордж Мартин", "Выдана", "book", "Игра престолов» (англ. A Game of Thrones) — роман в жанре фэнтези", LocalDate.of(2023, 5, 1), "Nikita"));
+        bookLender.setBooks(books);
+
         return books;
 
+    }
+
+    private List<User> getExampleUsers() {
+        List<User> users = new ArrayList<>();
+        users.add(new User(1, "Michael", getExampleBooks(), getExampleBooks()));
+        bookLender.setUsers(users);
+        return users;
     }
 }

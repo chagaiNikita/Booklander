@@ -22,15 +22,12 @@
         <div class="column">
             Статус
         </div>
-<!--        <div class="column">-->
-<!--            Дата выдачи-->
-<!--        </div>-->
-<!--        <div class="column">-->
-<!--            Кому выдана-->
-<!--        </div>-->
-<!--        <div class="column">-->
-<!--            Дата возврата-->
-<!--        </div>-->
+        <div class="column">
+            Дата выдачи
+        </div>
+        <div class="column">
+            Кому выдана
+        </div>
     </div>
     <#list books as book>
     <div class="row ${book?item_parity} flex">
@@ -49,6 +46,12 @@
         </div>
         <div class="column">
             ${book.status!"-- не указано --"}
+        </div>
+        <div class="column">
+            ${book.issueDate!"-- не указано --"}
+        </div>
+        <div class="column">
+            ${book.userName!"-- не указано --"}
         </div>
 
     </div>
