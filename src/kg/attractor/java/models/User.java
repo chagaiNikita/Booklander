@@ -5,6 +5,9 @@ import java.util.List;
 public class User {
     private int id;
     private String fullName;
+    private String login;
+    private String email;
+    private String password;
     private List<Book> currentBooks;
     private List<Book> pastBooks;
     private String link;
@@ -25,8 +28,26 @@ public class User {
         return currentBooks;
     }
 
+    public String getLogin() {
+        return login;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
     public List<Book> getPastBooks() {
         return pastBooks;
+    }
+
+    public User(String login, String email, String password) {
+        this.login = login;
+        this.email = email;
+        this.password = password;
     }
 
     public User(int id, String fullName, List<Book> currentBooks, List<Book> pastBooks) {

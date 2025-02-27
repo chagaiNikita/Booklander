@@ -20,6 +20,10 @@
                     <input type="email" name="email" id="user-email" placeholder="your email" required autofocus>
                 </div>
                 <div class="form-element">
+                    <label for="user-email">login</label>
+                    <input type="login" name="login" id="user-login" placeholder="your login" required autofocus>
+                </div>
+                <div class="form-element">
                     <label for="user-password">password</label>
                     <input type="password" name="user-password" id="user-password" placeholder="your password" required>
                 </div>
@@ -27,7 +31,7 @@
                     <span class="details">one more step to go</span>
                 </div>
                 <div class="form-element">
-                    <button class="register-button" type="submit">Login!</button>
+                    <button class="register-button" type="submit">${buttonText}</button>
                 </div>
             </fieldset>
         </form>

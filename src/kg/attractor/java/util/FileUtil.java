@@ -21,18 +21,17 @@ public class FileUtil {
             setPrettyPrinting().create();
 
 
-    public static List<Object> readFromFile() {
+    public static BookLender readFromFile() {
         try {
 
             String json = Files.readString(PATH);
-            Object[] catsArray = GSON.fromJson(json, Object[].class);
-            return new ArrayList<>(Arrays.asList(catsArray));
+            return GSON.fromJson(json, BookLender.class);
 
         } catch (IOException e) {
             System.out.println("Ошибка при чтении файла, путь " + e.getMessage() + " не найден");
-            return new ArrayList<>();
+            return null;
         } catch (Exception e) {
-            return new ArrayList<>();
+            return null;
         }
     }
 

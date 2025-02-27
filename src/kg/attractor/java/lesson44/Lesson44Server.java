@@ -30,36 +30,56 @@ public class Lesson44Server extends BasicServer {
         registerGet("/books", this::freemarkerSampleHandler);
         registerGet("/book", this::freemarkerSampleHandler);
         registerGet("/employee", this::freemarkerSampleHandler);
-        registerGet("/register", this::loginGet);
-        registerPost("/register", this::loginPost);
+        registerGet("/register", this::registerGet);
+        registerPost("/register", this::registerPost);
+        bookLender = FileUtil.readFromFile();
     }
 
-    private void loginPost(HttpExchange exchange) {
-
+    private void registerPost(HttpExchange exchange) {
+        System.out.println("register Post");
         String cType = exchange.getRequestHeaders()
                 .getOrDefault("Content-Type", List.of())
                 .get(0);
 
         String raw = getBody(exchange);
-
         Map<String, String> parsed = kg.attractor.java.utils.Utils.parseUrlEncoded(raw, "&");
-        String fmt = "<p>Необработанные данные: <b>%s</b></p>" +
-                "<p>Content-Type: <b>%s</b></p>" +
-                "<p>После обработки: <b>%s</b></p>";
-        String data = String.format(fmt, raw, cType, parsed);
-
-        try{
-            sendByteData(exchange, ResponseCodes.OK, ContentType.TEXT_HTML, data.getBytes());
-        } catch (IOException e){
-            e.printStackTrace();
-        }
-        redirect303(exchange, "/");
+        User user = new User(parsed.get("login"), parsed.get("email"), parsed.get("user-password"));
+//        bookLender.setUsers(getExampleUsersForCheckRegister());
+        registerNewUser(user,exchange);
+//        System.out.println(parsed);
+//        System.out.println(parsed.get("email"));
+//        String fmt = "<p>Необработанные данные: <b>%s</b></p>" +
+//                "<p>Content-Type: <b>%s</b></p>" +
+//                "<p>После обработки: <b>%s</b></p>";
+//        String data = String.format(fmt, raw, cType, parsed);
+//
+//        try{
+//            sendByteData(exchange, ResponseCodes.OK, ContentType.TEXT_HTML, data.getBytes());
+//        } catch (IOException e){
+//            e.printStackTrace();
+//        }
+//        redirect303(exchange, "/");
     }
 
-    private void loginGet(HttpExchange exchange) {
-        Path path = makeFilePath("/auth/login.ftlh");
-        sendFile(exchange, path, ContentType.TEXT_HTML);
+    private void registerNewUser(User user, HttpExchange exchange) {
+        for (User u : bookLender.getUsers()) {
+            if (u.getEmail().equals(user.getEmail()) || u.getLogin().equals(user.getLogin())) {
+                redirect303(exchange, "/");
+                System.out.println("Пользователь с такими id уже существует");
+                return;
+            }
+        }
+        bookLender.addUser(user);
+        FileUtil.writeToFile(bookLender);
+        System.out.println("Регистрация прошла успешно");
+    }
 
+    private void registerGet(HttpExchange exchange) {
+//        Path path = makeFilePath("/auth/login.ftlh");
+//        sendFile(exchange, path, ContentType.TEXT_HTML);
+        Map<String, String> buttonText = new HashMap<>();
+        buttonText.put("buttonText", "Зарегистрироваться");
+        renderTemplate(exchange, "/auth/login.ftlh", buttonText);
     }
 
     private static Configuration initFreeMarker() {
@@ -162,6 +182,14 @@ public class Lesson44Server extends BasicServer {
         pastBooks.add(books.get(2));
         users.add(new User(1, "Michael", currentBook, pastBooks));
         bookLender.setUsers(users);
+        return users;
+    }
+
+    private List<User> getExampleUsersForCheckRegister() {
+        List<User> users = new ArrayList<>();
+        users.add(new User("nikita321", "nikita@gmail.com", "321"));
+        users.add(new User("pushkin5", "pushkin@gmail.com", "password"));
+        users.add(new User("clown", "clown@gmail.com", "superpassword"));
         return users;
     }
 }

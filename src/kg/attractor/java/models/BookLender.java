@@ -10,6 +10,10 @@ public class BookLender {
         return books;
     }
 
+    public void addUser(User user) {
+        users.add(user);
+    }
+
     public void setBooks(List<Book> books) {
         this.books = books;
     }
