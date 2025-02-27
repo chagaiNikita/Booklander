@@ -30,8 +30,8 @@ public class Lesson44Server extends BasicServer {
         registerGet("/books", this::freemarkerSampleHandler);
         registerGet("/book", this::freemarkerSampleHandler);
         registerGet("/employee", this::freemarkerSampleHandler);
-        registerGet("/auth/login", this::loginGet);
-        registerPost("/auth/login", this::loginPost);
+        registerGet("/register", this::loginGet);
+        registerPost("/register", this::loginPost);
     }
 
     private void loginPost(HttpExchange exchange) {
