@@ -34,6 +34,7 @@ public class Lesson44Server extends BasicServer {
         registerGet("/register", this::registerGet);
         registerPost("/register", this::registerPost);
         registerGet("/registerResult", this::sendRegResult);
+        registerGet("/login", this::loginGet);
         bookLender = FileUtil.readFromFile();
         registerSuccess = true;
     }
@@ -103,8 +104,19 @@ public class Lesson44Server extends BasicServer {
     private void registerGet(HttpExchange exchange) {
 //        Path path = makeFilePath("/auth/login.ftlh");
 //        sendFile(exchange, path, ContentType.TEXT_HTML);
-        Map<String, String> buttonText = new HashMap<>();
+        Map<String, Object> buttonText = new HashMap<>();
+        buttonText.put("class", "");
         buttonText.put("buttonText", "Зарегистрироваться");
+        buttonText.put("showEmailField", true);
+        buttonText.put("postLink", "/register");
+        renderTemplate(exchange, "/auth/login.ftlh", buttonText);
+    }
+
+    private void loginGet(HttpExchange exchange) {
+        Map<String, String> buttonText = new HashMap<>();
+        buttonText.put("buttonText", "Войти");
+        buttonText.put("class", "email");
+        buttonText.put("postLink", "/login");
         renderTemplate(exchange, "/auth/login.ftlh", buttonText);
     }
 

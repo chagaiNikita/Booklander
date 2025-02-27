@@ -83,6 +83,11 @@
       "login": "blablabalfffblablal@gmail.com",
       "email": "blablabalbffflablal@gmail.com",
       "password": "blablabalblablal@gmail.com"
+    },
+    {
+      "id": 0,
+      "login": "faaff",
+      "password": "affa"
     }
   ],
   "books": [

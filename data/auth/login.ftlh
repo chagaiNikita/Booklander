@@ -9,16 +9,19 @@
 
 <body>
     <main>
-        <form action="/register" method="post">
+        <form action="${postLink}" method="post">
             <fieldset>
                 <div class="legend">
                     <p>Welcome!</p>
                     <img src="../images/1.jpg" alt="coins" style="display:block; width: 200px; height: 200px;">
                 </div>
-                <div class="form-element">
-                    <label for="user-email">email</label>
-                    <input type="email" name="email" id="user-email" placeholder="your email" required autofocus>
-                </div>
+                <#if showEmailField?? && showEmailField>
+                    <div class="form-element">
+                        <label for="user-email">email</label>
+                        <input type="email" name="email" id="user-email" placeholder="your email" required autofocus>
+                    </div>
+                </#if>
+
                 <div class="form-element">
                     <label for="user-email">login</label>
                     <input type="login" name="login" id="user-login" placeholder="your login" required autofocus>
