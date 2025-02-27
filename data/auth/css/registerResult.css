@@ -1,0 +1,27 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin-top: 50px;
+}
+
+.message {
+    font-size: 20px;
+    padding: 15px;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+.success {
+    color: green;
+    border: 2px solid green;
+    background: #eaffea;
+}
+
+.error {
+    color: red;
+    border: 2px solid red;
+    background: #ffeaea;
+}
+.display-none {
+    display: none;
+}

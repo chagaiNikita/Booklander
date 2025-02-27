@@ -23,7 +23,8 @@ import java.util.Map;
 
 public class Lesson44Server extends BasicServer {
     private final static Configuration freemarker = initFreeMarker();
-    private BookLender bookLender = new BookLender();
+    private BookLender bookLender;
+    private boolean registerSuccess;
 
     public Lesson44Server(String host, int port) throws IOException {
         super(host, port);
@@ -32,10 +33,13 @@ public class Lesson44Server extends BasicServer {
         registerGet("/employee", this::freemarkerSampleHandler);
         registerGet("/register", this::registerGet);
         registerPost("/register", this::registerPost);
+        registerGet("/registerResult", this::sendRegResult);
         bookLender = FileUtil.readFromFile();
+        registerSuccess = true;
     }
 
     private void registerPost(HttpExchange exchange) {
+        registerSuccess = true;
         System.out.println("register Post");
         String cType = exchange.getRequestHeaders()
                 .getOrDefault("Content-Type", List.of())
@@ -46,6 +50,9 @@ public class Lesson44Server extends BasicServer {
         User user = new User(parsed.get("login"), parsed.get("email"), parsed.get("user-password"));
 //        bookLender.setUsers(getExampleUsersForCheckRegister());
         registerNewUser(user,exchange);
+        sendRegResult(exchange);
+
+        redirect303(exchange, "/registerResult");
 //        System.out.println(parsed);
 //        System.out.println(parsed.get("email"));
 //        String fmt = "<p>Необработанные данные: <b>%s</b></p>" +
@@ -64,14 +71,33 @@ public class Lesson44Server extends BasicServer {
     private void registerNewUser(User user, HttpExchange exchange) {
         for (User u : bookLender.getUsers()) {
             if (u.getEmail().equals(user.getEmail()) || u.getLogin().equals(user.getLogin())) {
-                redirect303(exchange, "/");
+//                redirect303(exchange, "/");
                 System.out.println("Пользователь с такими id уже существует");
+                registerSuccess = false;
                 return;
             }
         }
         bookLender.addUser(user);
         FileUtil.writeToFile(bookLender);
         System.out.println("Регистрация прошла успешно");
+
+    }
+
+    private void sendRegResult(HttpExchange exchange) {
+        Map<String, String> map = new HashMap<>();
+        if (registerSuccess) {
+            map.put("message", "success");
+            map.put("class", "success");
+            map.put("link", "/books");
+            map.put("linkMessage", "Регистрация прошла успешно! Нажмите сюда чтобы перейти к списку книг");
+        } else {
+            map.put("message", "error");
+            map.put("class", "error");
+            map.put("link", "/register");
+            map.put("linkMessage", "Пользователь с такой почтой или логином уже существует. Нажмите сюда чтобы попробовать еще раз");
+        }
+
+        renderTemplate(exchange, "auth/registerResult.html", map);
     }
 
     private void registerGet(HttpExchange exchange) {
@@ -100,7 +126,7 @@ public class Lesson44Server extends BasicServer {
     private void freemarkerSampleHandler(HttpExchange exchange) {
         Object model = getModel(exchange);
         renderTemplate(exchange, getFileNameHTML(exchange.getRequestURI().getPath()), model);
-        FileUtil.writeToFile(bookLender);
+//        FileUtil.writeToFile(bookLender);
     }
     private Object getModel(HttpExchange exchange) {
         if (exchange.getRequestURI().getPath().equals("/book")) return getBookInfo();

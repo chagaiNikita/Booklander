@@ -23,6 +23,99 @@
       "login": "fafs",
       "email": "chagai.nikita@gmail.com",
       "password": "123"
+    },
+    {
+      "id": 0,
+      "login": "avengert",
+      "email": "3qtwetw@gmail.com",
+      "password": "123"
+    },
+    {
+      "id": 0,
+      "login": "gadfadf",
+      "email": "fsdfsfd@gmail.com",
+      "password": "faszf"
+    },
+    {
+      "id": 0,
+      "login": "somelogin",
+      "email": "some@gmail.com",
+      "password": "123"
+    },
+    {
+      "id": 0,
+      "login": "badbad",
+      "email": "blablabla@gmail.com",
+      "password": "1241"
+    },
+    {
+      "id": 0,
+      "login": "dagadgad",
+      "email": "fadadgadg@gmail.com",
+      "password": "gadasgd"
+    },
+    {
+      "id": 0,
+      "login": "asgagdadgsg",
+      "email": "fadfadadfad@gmail.com",
+      "password": "dgssgf"
+    },
+    {
+      "id": 0,
+      "login": "safasgasga",
+      "email": "Somemama@gmaiil.com",
+      "password": "agag"
+    },
+    {
+      "id": 0,
+      "login": "abababab",
+      "email": "albina@gmail.com",
+      "password": "babab"
+    },
+    {
+      "id": 0,
+      "login": "blablabalblablal@gmail.com",
+      "email": "blablabalblablal@gmail.com",
+      "password": "blablabalblablal@gmail.com"
+    },
+    {
+      "id": 0,
+      "login": "blablabalfffblablal@gmail.com",
+      "email": "blablabalbffflablal@gmail.com",
+      "password": "blablabalblablal@gmail.com"
+    }
+  ],
+  "books": [
+    {
+      "id": 1,
+      "name": "Война и мир",
+      "author": "Лев Толстой",
+      "photo": "images/0002-min-png.png",
+      "status": "Выдана",
+      "description": "Война и мир» — огромная сага",
+      "link": "book",
+      "issueDate": "2020-12-11",
+      "userName": "Michael"
+    },
+    {
+      "id": 2,
+      "name": "Колобок",
+      "author": "Алексей Толстой",
+      "photo": "images/0002-min-png.png",
+      "status": "На месте",
+      "description": "Колобок описание",
+      "link": "book"
+    },
+    {
+      "id": 3,
+      "name": "Игра престолов",
+      "author": "Джордж Мартин",
+      "photo": "images/0002-min-png.png",
+      "status": "Выдана",
+      "description": "Игра престолов» (англ. A Game of Thrones) — роман в жанре фэнтези",
+      "link": "book",
+      "issueDate": "2023-05-01",
+      "userName": "Nikita"
     }
   ]
 }
