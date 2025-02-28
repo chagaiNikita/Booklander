@@ -1,4 +1,4 @@
-package kg.attractor.java.utils;
+package kg.attractor.java.util;
 
 import java.net.URLDecoder;
 import java.nio.charset.Charset;

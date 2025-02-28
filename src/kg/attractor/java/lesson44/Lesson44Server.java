@@ -12,6 +12,7 @@ import kg.attractor.java.server.BasicServer;
 import kg.attractor.java.server.ContentType;
 import kg.attractor.java.server.ResponseCodes;
 import kg.attractor.java.util.FileUtil;
+import kg.attractor.java.util.Utils;
 
 import java.io.*;
 import java.time.LocalDate;
@@ -50,7 +51,7 @@ public class Lesson44Server extends BasicServer {
         System.out.println("register Post");
 
         String raw = getBody(exchange);
-        Map<String, String> parsed = kg.attractor.java.utils.Utils.parseUrlEncoded(raw, "&");
+        Map<String, String> parsed = Utils.parseUrlEncoded(raw, "&");
         System.out.println("start 58");
         User user = new User(parsed.get("login"), parsed.get("email"), parsed.get("user-password"));
         System.out.println("start 61");
@@ -103,7 +104,7 @@ public class Lesson44Server extends BasicServer {
 
     private void loginPost(HttpExchange exchange) {
         String raw = getBody(exchange);
-        Map<String, String> parsed = kg.attractor.java.utils.Utils.parseUrlEncoded(raw, "&");
+        Map<String, String> parsed = Utils.parseUrlEncoded(raw, "&");
         System.out.println(parsed);
         User user = checkLogin(parsed.get("login"), parsed.get("user-password"));
         if (user == null) {
