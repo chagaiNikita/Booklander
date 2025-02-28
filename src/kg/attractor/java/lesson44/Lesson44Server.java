@@ -14,7 +14,6 @@ import kg.attractor.java.server.ResponseCodes;
 import kg.attractor.java.util.FileUtil;
 
 import java.io.*;
-import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -49,9 +48,6 @@ public class Lesson44Server extends BasicServer {
     private void registerPost(HttpExchange exchange) {
         registerSuccess = true;
         System.out.println("register Post");
-        String cType = exchange.getRequestHeaders()
-                .getOrDefault("Content-Type", List.of())
-                .get(0);
 
         String raw = getBody(exchange);
         Map<String, String> parsed = kg.attractor.java.utils.Utils.parseUrlEncoded(raw, "&");
@@ -97,8 +93,6 @@ public class Lesson44Server extends BasicServer {
     }
 
     private void registerGet(HttpExchange exchange) {
-//        Path path = makeFilePath("/auth/login.ftlh");
-//        sendFile(exchange, path, ContentType.TEXT_HTML);
         Map<String, Object> buttonText = new HashMap<>();
         buttonText.put("class", "");
         buttonText.put("buttonText", "Зарегистрироваться");
@@ -160,7 +154,6 @@ public class Lesson44Server extends BasicServer {
     private void freemarkerSampleHandler(HttpExchange exchange) {
         Object model = getModel(exchange);
         renderTemplate(exchange, getFileNameHTML(exchange.getRequestURI().getPath()), model);
-//        FileUtil.writeToFile(bookLender);
     }
     private Object getModel(HttpExchange exchange) {
         if (exchange.getRequestURI().getPath().equals("/book")) return getBookInfo();
