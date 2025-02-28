@@ -55,31 +55,18 @@ public class Lesson44Server extends BasicServer {
 
         String raw = getBody(exchange);
         Map<String, String> parsed = kg.attractor.java.utils.Utils.parseUrlEncoded(raw, "&");
+        System.out.println("start 58");
         User user = new User(parsed.get("login"), parsed.get("email"), parsed.get("user-password"));
-//        bookLender.setUsers(getExampleUsersForCheckRegister());
-        registerNewUser(user,exchange);
+        System.out.println("start 61");
+        registerNewUser(user);
         sendRegResult(exchange);
 
         redirect303(exchange, "/registerResult");
-//        System.out.println(parsed);
-//        System.out.println(parsed.get("email"));
-//        String fmt = "<p>Необработанные данные: <b>%s</b></p>" +
-//                "<p>Content-Type: <b>%s</b></p>" +
-//                "<p>После обработки: <b>%s</b></p>";
-//        String data = String.format(fmt, raw, cType, parsed);
-//
-//        try{
-//            sendByteData(exchange, ResponseCodes.OK, ContentType.TEXT_HTML, data.getBytes());
-//        } catch (IOException e){
-//            e.printStackTrace();
-//        }
-//        redirect303(exchange, "/");
     }
 
-    private void registerNewUser(User user, HttpExchange exchange) {
+    private void registerNewUser(User user) {
         for (User u : bookLender.getUsers()) {
             if (u.getEmail().equals(user.getEmail()) || u.getLogin().equals(user.getLogin())) {
-//                redirect303(exchange, "/");
                 System.out.println("Пользователь с такими id уже существует");
                 registerSuccess = false;
                 return;
