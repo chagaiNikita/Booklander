@@ -80,3 +80,12 @@ fieldset label {
 .email {
     display: none;
 }
+
+.error {
+    color: red;
+    border: 2px solid red;
+    background: #ffeaea;
+}
+.display-none {
+    display: none;
+}

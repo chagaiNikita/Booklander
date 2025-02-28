@@ -35,8 +35,15 @@ public class Lesson44Server extends BasicServer {
         registerPost("/register", this::registerPost);
         registerGet("/registerResult", this::sendRegResult);
         registerGet("/login", this::loginGet);
+        registerPost("/login", this::loginPost);
+        registerGet("/profile", this::profileGetForLink);
         bookLender = FileUtil.readFromFile();
         registerSuccess = true;
+    }
+
+    private void profileGetForLink(HttpExchange exchange) {
+        renderTemplate(exchange, "/profile.html", null);
+
     }
 
     private void registerPost(HttpExchange exchange) {
@@ -84,6 +91,7 @@ public class Lesson44Server extends BasicServer {
 
     }
 
+
     private void sendRegResult(HttpExchange exchange) {
         Map<String, String> map = new HashMap<>();
         if (registerSuccess) {
@@ -112,10 +120,37 @@ public class Lesson44Server extends BasicServer {
         renderTemplate(exchange, "/auth/login.ftlh", buttonText);
     }
 
+    private void loginPost(HttpExchange exchange) {
+        String raw = getBody(exchange);
+        Map<String, String> parsed = kg.attractor.java.utils.Utils.parseUrlEncoded(raw, "&");
+        System.out.println(parsed);
+        User user = checkLogin(parsed.get("login"), parsed.get("user-password"));
+        if (user == null) {
+            Map<String, Object> invalidLogin = new HashMap<>();
+            invalidLogin.put("buttonText", "Войти");
+//          invalidLogin.put("class", "email");
+            invalidLogin.put("postLink", "/login");
+            invalidLogin.put("invalidLoginError", true);
+            renderTemplate(exchange, "/auth/login.ftlh", invalidLogin);
+        } else {
+            Map<String, Object> model = new HashMap<>();
+            model.put("user", user);
+            renderTemplate(exchange, "/profile.html", model);
+        }
+    }
+
+    private User checkLogin(String login, String password) {
+        for (User u : bookLender.getUsers()) {
+            if (u.getLogin().equals(login) && u.getPassword().equals(password))
+                return u;
+        }
+        return null;
+    }
+
     private void loginGet(HttpExchange exchange) {
         Map<String, String> buttonText = new HashMap<>();
         buttonText.put("buttonText", "Войти");
-        buttonText.put("class", "email");
+//        buttonText.put("class", "email");
         buttonText.put("postLink", "/login");
         renderTemplate(exchange, "/auth/login.ftlh", buttonText);
     }

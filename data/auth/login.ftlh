@@ -38,6 +38,12 @@
                 </div>
             </fieldset>
         </form>
+        <#if invalidLoginError?? && invalidLoginError>
+            <p class="message error">
+                Неверный логин или пароль повторите попытку
+            </p>
+        </#if>
+
     </main>
 </body>
 

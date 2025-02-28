@@ -1,0 +1,13 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 40px;
+    text-align: center;
+}
+
+.profile-container {
+    border: 1px solid #ccc;
+    padding: 20px;
+    display: inline-block;
+    border-radius: 10px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
