@@ -10,7 +10,9 @@ import kg.attractor.java.models.BookLender;
 import kg.attractor.java.models.User;
 import kg.attractor.java.server.BasicServer;
 import kg.attractor.java.server.ContentType;
+import kg.attractor.java.server.Cookie;
 import kg.attractor.java.server.ResponseCodes;
+import kg.attractor.java.util.CodeGenerator;
 import kg.attractor.java.util.FileUtil;
 import kg.attractor.java.util.Utils;
 
@@ -117,14 +119,29 @@ public class Lesson44Server extends BasicServer {
         } else {
             Map<String, Object> model = new HashMap<>();
             model.put("user", user);
+            Cookie userCode = Cookie.make("cookieCode", user.getCookieCode());
+            userCode.setMaxAge(600);
+            userCode.setHttpOnly(true);
+            setCookie(exchange, userCode);
             renderTemplate(exchange, "/profile.html", model);
         }
     }
 
     private User checkLogin(String login, String password) {
         for (User u : bookLender.getUsers()) {
-            if (u.getLogin().equals(login) && u.getPassword().equals(password))
+            if (u.getLogin().equals(login) && u.getPassword().equals(password)) {
+                u.setCookieCode(CodeGenerator.makeCode(u.getEmail() + u.getLogin()));
                 return u;
+            }
+
+        }
+        return null;
+    }
+
+    private User getUserByCookieCode(String cookieCode) {
+        List<User> users = bookLender.getUsers();
+        for (User u  : users) {
+            if (u.getCookieCode() != null && u.getCookieCode().equals(cookieCode)) return u;
         }
         return null;
     }

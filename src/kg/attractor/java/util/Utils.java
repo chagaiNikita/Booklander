@@ -35,6 +35,6 @@ public class Utils {
         String key = URLDecoder.decode(pairs[0], utf8);
         String value = URLDecoder.decode(pairs[1], utf8);
 
-        return Optional.of(Map.entry(key, value));
+        return Optional.of(Map.entry(key.strip(), value.strip()));
     }
 }

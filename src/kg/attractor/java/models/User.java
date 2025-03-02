@@ -4,6 +4,7 @@ import java.util.List;
 
 public class User {
     private int id;
+    private String cookieCode;
     private String fullName;
     private String login;
     private String email;
@@ -11,6 +12,14 @@ public class User {
     private List<Book> currentBooks;
     private List<Book> pastBooks;
     private String link;
+
+    public String getCookieCode() {
+        return cookieCode;
+    }
+
+    public void setCookieCode(String cookieCode) {
+        this.cookieCode = cookieCode;
+    }
 
     public String getLink() {
         return link;
