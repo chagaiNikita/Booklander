@@ -16,7 +16,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class FileUtil {
-    private static final Path PATH = Path.of("src/kg/attractor/java/resources", "booklender.json");
+    private static final Path PATH = Path.of("data/resources", "booklender.json");
     private static final Gson GSON = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).
             setPrettyPrinting().create();
 

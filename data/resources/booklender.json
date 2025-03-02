@@ -89,6 +89,12 @@
       "login": "fafafaf@gmail.com",
       "email": "fafafaf@gmail.com",
       "password": "fafafaf@gmail.com"
+    },
+    {
+      "id": 0,
+      "login": "qweq",
+      "email": "qwweqwe@qwe.com",
+      "password": "qweqwe"
     }
   ],
   "books": [
