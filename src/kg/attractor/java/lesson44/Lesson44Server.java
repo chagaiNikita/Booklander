@@ -53,12 +53,26 @@ public class Lesson44Server extends BasicServer {
         User user = getUserByCookieCode(cookieVal);
         if (user != null) {
             Book bookForReturn = getBookById(exchange);
-            user.removeBookFromCurBooks(bookForReturn);
-            resetBookParameter(bookForReturn);
-            renderTemplate(exchange, "/books.html", getBookList());
+            if (user.getCurrentBooks().contains(bookForReturn)) {
+                user.removeBookFromCurBooks(bookForReturn);
+                resetBookParameter(bookForReturn);
+                FileUtil.writeToFile(bookLender);
+                renderTemplate(exchange, "/books.html", getBookList());
+            } else {
+                dontHaveBookError(exchange);
+            }
         } else {
             notAuthErrorHandler(exchange, bookLender.getBooks());
         }
+    }
+
+    private void dontHaveBookError(HttpExchange exchange) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("books", bookLender.getBooks());
+        map.put("error", true);
+        map.put("message", "Невозможно вернуть книгу т.к она не находится у вас");
+        map.put("authError", true);
+        renderTemplate(exchange, "/books.html", map);
     }
 
     private void resetBookParameter(Book book) {
@@ -94,13 +108,25 @@ public class Lesson44Server extends BasicServer {
     }
 
     private void addBookInCurrentBookList(HttpExchange exchange, Book book, User user) {
-        user.addBookInCurBooks(book);
-        book.setUserName(user.getLogin());
-        book.setStatus("Выдана");
-        book.setIssueDate(LocalDate.now());
-        System.out.println("Закончилась");
-        FileUtil.writeToFile(bookLender);
-        renderTemplate(exchange, "/books.html", getBookList());
+        if (book.getUserName() != null) {
+            bookIsBusyError(exchange, bookLender.getBooks());
+        } else {
+            user.addBookInCurBooks(book);
+            book.setUserName(user.getLogin());
+            book.setStatus("Выдана");
+            book.setIssueDate(LocalDate.now());
+            FileUtil.writeToFile(bookLender);
+            renderTemplate(exchange, "/books.html", getBookList());
+        }
+
+    }
+
+    private void bookIsBusyError(HttpExchange exchange, List<Book> bookList) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("books", bookList);
+        map.put("error", true);
+        map.put("message", "Невозможно получить книгу т.к она занята");
+        renderTemplate(exchange, "books.html", map);
     }
 
     private void notAuthErrorHandler(HttpExchange exchange, List<Book> bookList) {
