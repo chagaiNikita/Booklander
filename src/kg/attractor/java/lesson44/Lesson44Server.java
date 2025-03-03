@@ -41,9 +41,30 @@ public class Lesson44Server extends BasicServer {
         registerPost("/login", this::loginPost);
         registerGet("/profile", this::profileGetForLink);
         registerPost("/save-book", this::saveBook);
+        registerPost("/return-book", this::returnBook);
         bookLender = FileUtil.readFromFile();
         registerSuccess = true;
         fieldIsBlank = false;
+    }
+
+    private void returnBook(HttpExchange exchange) {
+        Map<String, String> cookies = Cookie.parse(getCookie(exchange));
+        String cookieVal = cookies.getOrDefault("cookieCode", null);
+        User user = getUserByCookieCode(cookieVal);
+        if (user != null) {
+            Book bookForReturn = getBookById(exchange);
+            user.removeBookFromCurBooks(bookForReturn);
+            resetBookParameter(bookForReturn);
+            renderTemplate(exchange, "/books.html", getBookList());
+        } else {
+            notAuthErrorHandler(exchange, bookLender.getBooks());
+        }
+    }
+
+    private void resetBookParameter(Book book) {
+        book.setUserName(null);
+        book.setIssueDate(null);
+        book.setStatus("На месте");
     }
 
     private void saveBook(HttpExchange exchange) {
@@ -62,23 +83,33 @@ public class Lesson44Server extends BasicServer {
                 map.put("message", "Нельзя взять больше " + bookLender.getBookLimitOnEmployee() + " книг!");
                 renderTemplate(exchange, "/books.html", map);
             } else {
-                user.addBookInCurBooks(book);
-                book.setUserName(user.getLogin());
-                System.out.println("Закончилась");
-                FileUtil.writeToFile(bookLender);
-                renderTemplate(exchange, "/books.html", getBookList());
+                addBookInCurrentBookList(exchange, book, user);
             }
 
         } else {
-            Map<String, Object> map = new HashMap<>();
-            map.put("books", bookList);
-            map.put("error", true);
-            map.put("message", "Невозможно совершить действие без авторизации!");
-            map.put("authError", true);
-            renderTemplate(exchange, "/books.html", map);
+            notAuthErrorHandler(exchange, bookList);
         }
 
 
+    }
+
+    private void addBookInCurrentBookList(HttpExchange exchange, Book book, User user) {
+        user.addBookInCurBooks(book);
+        book.setUserName(user.getLogin());
+        book.setStatus("Выдана");
+        book.setIssueDate(LocalDate.now());
+        System.out.println("Закончилась");
+        FileUtil.writeToFile(bookLender);
+        renderTemplate(exchange, "/books.html", getBookList());
+    }
+
+    private void notAuthErrorHandler(HttpExchange exchange, List<Book> bookList) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("books", bookList);
+        map.put("error", true);
+        map.put("message", "Невозможно совершить действие без авторизации!");
+        map.put("authError", true);
+        renderTemplate(exchange, "/books.html", map);
     }
 
     private void profileGetForLink(HttpExchange exchange) {

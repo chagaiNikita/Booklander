@@ -1,6 +1,7 @@
 package kg.attractor.java.models;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class Book {
     private int id;
@@ -24,6 +25,14 @@ public class Book {
 
     public LocalDate getIssueDate() {
         return issueDate;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public void setIssueDate(LocalDate issueDate) {
+        this.issueDate = issueDate;
     }
 
     public String getDescription() {
@@ -50,6 +59,17 @@ public class Book {
         return status;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Book book = (Book) o;
+        return Objects.equals(name, book.name) && Objects.equals(author, book.author);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, author);
+    }
 
     public String getLink() {
         return link;

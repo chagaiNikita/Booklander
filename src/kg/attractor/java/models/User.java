@@ -14,6 +14,11 @@ public class User {
     private List<Book> pastBooks = new ArrayList<>();
     private String link;
 
+    public void removeBookFromCurBooks(Book book) {
+        currentBooks.remove(book);
+        pastBooks.add(book);
+    }
+
     public void addBookInCurBooks(Book book) {
         System.out.println("Добавление книги в юзере");
         currentBooks.add(book);
