@@ -26,7 +26,7 @@
           "description": "Колобок описание",
           "link": "book",
           "issueDate": "2025-03-04",
-          "userName": "somepo4ta@gmail.com"
+          "userName": "blabla@gmail.com"
         }
       ],
       "pastBooks": [
@@ -109,8 +109,50 @@
           "link": "book",
           "issueDate": "2025-03-04",
           "userName": "somepo4ta@gmail.com"
+        },
+        {
+          "id": 2,
+          "name": "Колобок",
+          "author": "Алексей Толстой",
+          "photo": "images/0002-min-png.png",
+          "status": "Выдана",
+          "description": "Колобок описание",
+          "link": "book",
+          "issueDate": "2025-03-04",
+          "userName": "blabla@gmail.com"
         }
       ]
+    },
+    {
+      "id": 0,
+      "login": "blabla@gmail.com",
+      "email": "blabla@gmail.com",
+      "password": "blabla@gmail.com",
+      "currentBooks": [
+        {
+          "id": 1,
+          "name": "Война и мир",
+          "author": "Лев Толстой",
+          "photo": "images/0002-min-png.png",
+          "status": "Выдана",
+          "description": "Война и мир» — огромная сага",
+          "link": "book",
+          "issueDate": "2025-03-04",
+          "userName": "blabla@gmail.com"
+        },
+        {
+          "id": 2,
+          "name": "Колобок",
+          "author": "Алексей Толстой",
+          "photo": "images/0002-min-png.png",
+          "status": "Выдана",
+          "description": "Колобок описание",
+          "link": "book",
+          "issueDate": "2025-03-04",
+          "userName": "blabla@gmail.com"
+        }
+      ],
+      "pastBooks": []
     }
   ],
   "books": [
@@ -123,7 +165,7 @@
       "description": "Война и мир» — огромная сага",
       "link": "book",
       "issueDate": "2025-03-04",
-      "userName": "somepo4ta@gmail.com"
+      "userName": "blabla@gmail.com"
     },
     {
       "id": 2,
@@ -134,7 +176,7 @@
       "description": "Колобок описание",
       "link": "book",
       "issueDate": "2025-03-04",
-      "userName": "somepo4ta@gmail.com"
+      "userName": "blabla@gmail.com"
     },
     {
       "id": 3,

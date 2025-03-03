@@ -216,6 +216,14 @@ public class Lesson44Server extends BasicServer {
         } else {
             Map<String, Object> model = new HashMap<>();
             model.put("user", user);
+            if (user.getCurrentBooks() != null) {
+                model.put("currentBooks", user.getCurrentBooks());
+                model.put("haveCurBooks", true);
+            }
+            if (user.getPastBooks() != null) {
+                model.put("havePastBooks", true);
+                model.put("pastBooks", user.getPastBooks());
+            }
             Cookie userCode = Cookie.make("cookieCode", user.getCookieCode());
             userCode.setMaxAge(600);
             userCode.setHttpOnly(true);

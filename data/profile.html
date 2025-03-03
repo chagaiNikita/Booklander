@@ -14,6 +14,30 @@
         <p><strong>Имя:</strong> ${user.login!"Некий пользователь"}</p>
         <p><strong>Email:</strong> ${user.email!"example@example.com"}</p>
     </div>
+    <#if (haveCurBooks?? && haveCurBooks) || (havePastBooks?? && havePastBooks)>
+    <div>
+        <#if haveCurBooks ?? && haveCurBooks>
+        <h3>Текущие книги:</h3>
+        <ul>
+            <#list currentBooks as book>
+            <li class="${book?item_parity}">
+                ${book.name} - ${book.author}
+            </li>
+        </#list>
+        </ul>
+    </#if>
+        <#if havePastBooks ?? && havePastBooks>
+        <h3>Предыдущие книги:</h3>
+        <ul>
+            <#list pastBooks as book>
+            <li class="${book?item_parity}">
+                ${book.name} - ${book.author}
+            </li>
+        </#list>
+        </ul>
+        </#if>
+    </div>
+</#if>
 </body>
 
 </html>
