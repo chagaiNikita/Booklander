@@ -2,106 +2,32 @@
   "users": [
     {
       "id": 0,
-      "login": "nikita321",
-      "email": "nikita@gmail.com",
-      "password": "321"
-    },
-    {
-      "id": 0,
-      "login": "pushkin5",
-      "email": "pushkin@gmail.com",
-      "password": "password"
-    },
-    {
-      "id": 0,
-      "login": "clown",
-      "email": "clown@gmail.com",
-      "password": "superpassword"
-    },
-    {
-      "id": 0,
-      "login": "fafs",
-      "email": "chagai.nikita@gmail.com",
-      "password": "123"
-    },
-    {
-      "id": 0,
-      "login": "avengert",
-      "email": "3qtwetw@gmail.com",
-      "password": "123"
-    },
-    {
-      "id": 0,
-      "login": "gadfadf",
-      "email": "fsdfsfd@gmail.com",
-      "password": "faszf"
-    },
-    {
-      "id": 0,
-      "login": "somelogin",
-      "email": "some@gmail.com",
-      "password": "123"
-    },
-    {
-      "id": 0,
-      "login": "badbad",
-      "email": "blablabla@gmail.com",
-      "password": "1241"
-    },
-    {
-      "id": 0,
-      "login": "dagadgad",
-      "email": "fadadgadg@gmail.com",
-      "password": "gadasgd"
-    },
-    {
-      "id": 0,
-      "login": "asgagdadgsg",
-      "email": "fadfadadfad@gmail.com",
-      "password": "dgssgf"
-    },
-    {
-      "id": 0,
-      "login": "safasgasga",
-      "email": "Somemama@gmaiil.com",
-      "password": "agag"
-    },
-    {
-      "id": 0,
-      "login": "abababab",
-      "email": "albina@gmail.com",
-      "password": "babab"
-    },
-    {
-      "id": 0,
-      "login": "blablabalblablal@gmail.com",
-      "email": "blablabalblablal@gmail.com",
-      "password": "blablabalblablal@gmail.com"
-    },
-    {
-      "id": 0,
-      "login": "blablabalfffblablal@gmail.com",
-      "email": "blablabalbffflablal@gmail.com",
-      "password": "blablabalblablal@gmail.com"
-    },
-    {
-      "id": 0,
-      "login": "fafafaf@gmail.com",
-      "email": "fafafaf@gmail.com",
-      "password": "fafafaf@gmail.com"
-    },
-    {
-      "id": 0,
-      "login": "qweq",
-      "email": "qwweqwe@qwe.com",
-      "password": "qweqwe"
-    },
-    {
-      "id": 0,
       "login": "somepo4ta@gmail.com",
       "email": "somepo4ta@gmail.com",
       "password": "somepo4ta@gmail.com",
-      "currentBooks": [],
+      "currentBooks": [
+        {
+          "id": 1,
+          "name": "Война и мир",
+          "author": "Лев Толстой",
+          "photo": "images/0002-min-png.png",
+          "status": "Выдана",
+          "description": "Война и мир» — огромная сага",
+          "link": "book",
+          "issueDate": "2020-12-11",
+          "userName": "somepo4ta@gmail.com"
+        },
+        {
+          "id": 2,
+          "name": "Колобок",
+          "author": "Алексей Толстой",
+          "photo": "images/0002-min-png.png",
+          "status": "На месте",
+          "description": "Колобок описание",
+          "link": "book",
+          "userName": "somepo4ta@gmail.com"
+        }
+      ],
       "pastBooks": []
     }
   ],
@@ -115,7 +41,7 @@
       "description": "Война и мир» — огромная сага",
       "link": "book",
       "issueDate": "2020-12-11",
-      "userName": "Michael"
+      "userName": "somepo4ta@gmail.com"
     },
     {
       "id": 2,
@@ -124,7 +50,8 @@
       "photo": "images/0002-min-png.png",
       "status": "На месте",
       "description": "Колобок описание",
-      "link": "book"
+      "link": "book",
+      "userName": "somepo4ta@gmail.com"
     },
     {
       "id": 3,
@@ -137,5 +64,6 @@
       "issueDate": "2023-05-01",
       "userName": "Nikita"
     }
-  ]
+  ],
+  "bookLimitOnEmployee": 2
 }

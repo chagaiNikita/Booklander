@@ -47,6 +47,7 @@ public class Lesson44Server extends BasicServer {
     }
 
     private void saveBook(HttpExchange exchange) {
+        List<Book> bookList = bookLender.getBooks();
         String cookie = getCookie(exchange);
         Map<String, String> cookies = Cookie.parse(cookie);
         String cookieVal = cookies.getOrDefault("cookieCode", null);
@@ -54,14 +55,25 @@ public class Lesson44Server extends BasicServer {
         if (user != null) {
             Book book = getBookById(exchange);
             System.out.println("Начата добавка книги");
-            user.addBookInCurBooks(book);
-            book.setUserName(user.getLogin());
-            System.out.println("Закончилась");
-            renderTemplate(exchange, "/books.html", getBookList());
+            if (user.getCurrentBooks().size() == bookLender.getBookLimitOnEmployee()) {
+                Map<String, Object> map = new HashMap<>();
+                map.put("books", bookList);
+                map.put("error", true);
+                map.put("message", "Нельзя взять больше " + bookLender.getBookLimitOnEmployee() + " книг!");
+                renderTemplate(exchange, "/books.html", map);
+            } else {
+                user.addBookInCurBooks(book);
+                book.setUserName(user.getLogin());
+                System.out.println("Закончилась");
+                FileUtil.writeToFile(bookLender);
+                renderTemplate(exchange, "/books.html", getBookList());
+            }
+
         } else {
-            List<Book> bookList = bookLender.getBooks();
             Map<String, Object> map = new HashMap<>();
             map.put("books", bookList);
+            map.put("error", true);
+            map.put("message", "Невозможно совершить действие без авторизации!");
             map.put("authError", true);
             renderTemplate(exchange, "/books.html", map);
         }
@@ -109,11 +121,13 @@ public class Lesson44Server extends BasicServer {
             fieldIsBlank = true;
             return;
         }
-        for (User u : bookLender.getUsers()) {
-            if (u.getEmail().equals(user.getEmail()) || u.getLogin().equals(user.getLogin())) {
-                System.out.println("Пользователь с такими id уже существует");
-                registerSuccess = false;
-                return;
+        if (bookLender.getUsers() != null) {
+            for (User u : bookLender.getUsers()) {
+                if (u.getEmail().equals(user.getEmail()) || u.getLogin().equals(user.getLogin())) {
+                    System.out.println("Пользователь с такими id уже существует");
+                    registerSuccess = false;
+                    return;
+                }
             }
         }
         bookLender.addUser(user);

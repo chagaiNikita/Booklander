@@ -31,14 +31,20 @@
                 <input type="hidden" name="id" value="${book.id!""}">
                 <button type="submit" class="save-button">Сохранить</button>
             </form>
+            <form action="/return-book" method="POST">
+                <input type="hidden" name="id" value="${book.id!""}">
+                <button type="submit" class="save-button">Вернуть</button>
+            </form>
         </div>
     </div>
 </#list>
     <div>
-     <#if authError?? && authError>
+     <#if error?? && error>
         <p class="message error">
-        Невозможно совершить действие без авторизации <br>
+        ${message} <br>
+            <#if authError?? && authError>
             <a href="/login">Перейдите сюда для авторизации</a>
+            </#if>
     </p>
     </#if>
 </div>

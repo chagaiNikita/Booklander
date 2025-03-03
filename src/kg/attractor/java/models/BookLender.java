@@ -1,10 +1,12 @@
 package kg.attractor.java.models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class BookLender {
-    List<User> users;
-    List<Book> books;
+    private List<User> users = new ArrayList<>();
+    private List<Book> books = new ArrayList<>();
+    private final int bookLimitOnEmployee = 2;
 
     public List<Book> getBooks() {
         return books;
@@ -25,4 +27,10 @@ public class BookLender {
     public void setUsers(List<User> users) {
         this.users = users;
     }
+
+    public int getBookLimitOnEmployee() {
+        return bookLimitOnEmployee;
+    }
+
+
 }
