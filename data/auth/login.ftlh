@@ -23,7 +23,7 @@
                 </#if>
 
                 <div class="form-element">
-                    <label for="user-email">login</label>
+                    <label for="user-login">login</label>
                     <input type="login" name="login" id="user-login" placeholder="your login" required autofocus>
                 </div>
                 <div class="form-element">

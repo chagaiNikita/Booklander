@@ -27,6 +27,7 @@ public class Lesson44Server extends BasicServer {
     private final static Configuration freemarker = initFreeMarker();
     private BookLender bookLender;
     private boolean registerSuccess;
+    private boolean fieldIsBlank;
 
     public Lesson44Server(String host, int port) throws IOException {
         super(host, port);
@@ -39,8 +40,14 @@ public class Lesson44Server extends BasicServer {
         registerGet("/login", this::loginGet);
         registerPost("/login", this::loginPost);
         registerGet("/profile", this::profileGetForLink);
+        registerPost("/save-book", this::saveBook);
         bookLender = FileUtil.readFromFile();
         registerSuccess = true;
+        fieldIsBlank = false;
+    }
+
+    private void saveBook(HttpExchange exchange) {
+
     }
 
     private void profileGetForLink(HttpExchange exchange) {
@@ -64,6 +71,12 @@ public class Lesson44Server extends BasicServer {
     }
 
     private void registerNewUser(User user) {
+        if (user.getEmail() == null || user.getLogin() == null || user.getPassword() == null
+        || user.getEmail().isBlank() || user.getLogin().isBlank() || user.getPassword().isBlank()) {
+            registerSuccess = false;
+            fieldIsBlank = true;
+            return;
+        }
         for (User u : bookLender.getUsers()) {
             if (u.getEmail().equals(user.getEmail()) || u.getLogin().equals(user.getLogin())) {
                 System.out.println("Пользователь с такими id уже существует");
@@ -80,6 +93,13 @@ public class Lesson44Server extends BasicServer {
 
     private void sendRegResult(HttpExchange exchange) {
         Map<String, String> map = new HashMap<>();
+        String errorMessage;
+        if (fieldIsBlank) {
+            errorMessage = "Поля не должны быть пустыми! Нажмите сюда и попробуйте еще раз";
+
+        } else {
+            errorMessage = "Пользователь с такой почтой или логином уже существует. Нажмите сюда чтобы попробовать еще раз";
+        }
         if (registerSuccess) {
             map.put("message", "success");
             map.put("class", "success");
@@ -89,7 +109,7 @@ public class Lesson44Server extends BasicServer {
             map.put("message", "error");
             map.put("class", "error");
             map.put("link", "/register");
-            map.put("linkMessage", "Пользователь с такой почтой или логином уже существует. Нажмите сюда чтобы попробовать еще раз");
+            map.put("linkMessage", errorMessage);
         }
 
         renderTemplate(exchange, "auth/registerResult.html", map);

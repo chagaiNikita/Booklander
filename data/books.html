@@ -10,48 +10,91 @@
 <div><h1>Список книг</h1></div>
 <div class="table flex flex-col">
     <div class="header flex">
-        <div class="column">
-            ID
-        </div>
-        <div class="column">
-            Название
-        </div>
-        <div class="column">
-            Автор
-        </div>
-        <div class="column">
-            Статус
-        </div>
-        <div class="column">
-            Дата выдачи
-        </div>
-        <div class="column">
-            Кому выдана
-        </div>
+        <div class="column">ID</div>
+        <div class="column">Название</div>
+        <div class="column">Автор</div>
+        <div class="column">Статус</div>
+        <div class="column">Дата выдачи</div>
+        <div class="column">Кому выдана</div>
+        <div class="column">Действие</div>
     </div>
     <#list books as book>
     <div class="row ${book?item_parity} flex">
+        <div class="column">${book.id!"-- не указано --"}</div>
+        <div class="column"><a href="${book.link!"#"}">${book.name!"-- не указано --"}</a></div>
+        <div class="column">${book.author!"-- не указано --"}</div>
+        <div class="column">${book.status!"-- не указано --"}</div>
+        <div class="column">${book.issueDate!"-- не указано --"}</div>
+        <div class="column"><a href="/employee#">${book.userName!"-- не указано --"}</a></div>
         <div class="column">
-            ${book.id!"-- не указано --"}
+            <form action="/save-book" method="POST">
+                <input type="hidden" name="id" value="${book.id!""}">
+                <button type="submit" class="save-button">Сохранить</button>
+            </form>
         </div>
-        <div class="column">
-            <a href="${book.link!"#"}">${book.name!"-- не указано --"}</a>
-        </div>
-        <div class="column">
-            ${book.author!"-- не указано --"}
-        </div>
-        <div class="column">
-            ${book.status!"-- не указано --"}
-        </div>
-        <div class="column">
-            ${book.issueDate!"-- не указано --"}
-        </div>
-        <div class="column">
-            <a href="/employee"#"}">${book.userName!"-- не указано --"}</a>
-        </div>
-
     </div>
 </#list>
 </div>
 </body>
 </html>
+
+
+
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <link href="css/freemarker.css" rel="stylesheet">-->
+<!--    <title>Список книг</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<div><h1>Список книг</h1></div>-->
+<!--<div class="table flex flex-col">-->
+<!--    <div class="header flex">-->
+<!--        <div class="column">-->
+<!--            ID-->
+<!--        </div>-->
+<!--        <div class="column">-->
+<!--            Название-->
+<!--        </div>-->
+<!--        <div class="column">-->
+<!--            Автор-->
+<!--        </div>-->
+<!--        <div class="column">-->
+<!--            Статус-->
+<!--        </div>-->
+<!--        <div class="column">-->
+<!--            Дата выдачи-->
+<!--        </div>-->
+<!--        <div class="column">-->
+<!--            Кому выдана-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <#list books as book>-->
+<!--    <div class="row ${book?item_parity} flex">-->
+<!--        <div class="column">-->
+<!--            ${book.id!"&#45;&#45; не указано &#45;&#45;"}-->
+<!--        </div>-->
+<!--        <div class="column">-->
+<!--            <a href="${book.link!"#"}">${book.name!"&#45;&#45; не указано &#45;&#45;"}</a>-->
+<!--        </div>-->
+<!--        <div class="column">-->
+<!--            ${book.author!"&#45;&#45; не указано &#45;&#45;"}-->
+<!--        </div>-->
+<!--        <div class="column">-->
+<!--            ${book.status!"&#45;&#45; не указано &#45;&#45;"}-->
+<!--        </div>-->
+<!--        <div class="column">-->
+<!--            ${book.issueDate!"&#45;&#45; не указано &#45;&#45;"}-->
+<!--        </div>-->
+<!--        <div class="column">-->
+<!--            <a href="/employee"#"}">${book.userName!"&#45;&#45; не указано &#45;&#45;"}</a>-->
+<!--        </div>-->
+
+<!--    </div>-->
+<!--</#list>-->
+<!--</div>-->
+<!--</body>-->
+<!--</html>-->
