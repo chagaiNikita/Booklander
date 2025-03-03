@@ -47,12 +47,44 @@ public class Lesson44Server extends BasicServer {
     }
 
     private void saveBook(HttpExchange exchange) {
+        String cookie = getCookie(exchange);
+        Map<String, String> cookies = Cookie.parse(cookie);
+        String cookieVal = cookies.getOrDefault("cookieCode", null);
+        User user = getUserByCookieCode(cookieVal);
+        if (user != null) {
+            Book book = getBookById(exchange);
+            System.out.println("Начата добавка книги");
+            user.addBookInCurBooks(book);
+            book.setUserName(user.getLogin());
+            System.out.println("Закончилась");
+            renderTemplate(exchange, "/books.html", getBookList());
+        } else {
+            List<Book> bookList = bookLender.getBooks();
+            Map<String, Object> map = new HashMap<>();
+            map.put("books", bookList);
+            map.put("authError", true);
+            renderTemplate(exchange, "/books.html", map);
+        }
+
 
     }
 
     private void profileGetForLink(HttpExchange exchange) {
         renderTemplate(exchange, "/profile.html", null);
 
+    }
+
+    private Book getBookById(HttpExchange exchange) {
+        String book = getBody(exchange);
+        Map<String, String> parsed = Utils.parseUrlEncoded(book, "&");
+        int bookId = Integer.parseInt(parsed.get("id"));
+        List<Book> books = bookLender.getBooks();
+        for (Book b : books) {
+            if (b.getId() == bookId) {
+                return b;
+            }
+        }
+        return null;
     }
 
     private void registerPost(HttpExchange exchange) {
@@ -226,8 +258,8 @@ public class Lesson44Server extends BasicServer {
     }
 
     private Map<String, List<Book>> getBookList() {
-        List<Book> books = getExampleBooks();
-        bookLender.setBooks(books);
+        List<Book> books = bookLender.getBooks();
+//        bookLender.setBooks(books);
         Map<String, List<Book>> f = new HashMap<>();
         f.put("books", books);
 

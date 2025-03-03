@@ -34,7 +34,17 @@
         </div>
     </div>
 </#list>
+    <div>
+     <#if authError?? && authError>
+        <p class="message error">
+        Невозможно совершить действие без авторизации <br>
+            <a href="/login">Перейдите сюда для авторизации</a>
+    </p>
+    </#if>
 </div>
+</div>
+
+
 </body>
 </html>
 

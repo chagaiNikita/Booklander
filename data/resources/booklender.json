@@ -95,6 +95,14 @@
       "login": "qweq",
       "email": "qwweqwe@qwe.com",
       "password": "qweqwe"
+    },
+    {
+      "id": 0,
+      "login": "somepo4ta@gmail.com",
+      "email": "somepo4ta@gmail.com",
+      "password": "somepo4ta@gmail.com",
+      "currentBooks": [],
+      "pastBooks": []
     }
   ],
   "books": [

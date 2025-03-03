@@ -1,17 +1,24 @@
 package kg.attractor.java.models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class User {
     private int id;
-    private String cookieCode;
+    private transient String cookieCode;
     private String fullName;
     private String login;
     private String email;
     private String password;
-    private List<Book> currentBooks;
-    private List<Book> pastBooks;
+    private List<Book> currentBooks = new ArrayList<>();
+    private List<Book> pastBooks = new ArrayList<>();
     private String link;
+
+    public void addBookInCurBooks(Book book) {
+        System.out.println("Добавление книги в юзере");
+        currentBooks.add(book);
+        System.out.println("Добавление книги в юзере2");
+    }
 
     public String getCookieCode() {
         return cookieCode;
