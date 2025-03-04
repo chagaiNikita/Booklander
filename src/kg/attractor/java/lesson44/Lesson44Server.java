@@ -188,6 +188,11 @@ public class Lesson44Server extends BasicServer {
         User user = new User(parsed.get("login"), parsed.get("email"), parsed.get("user-password"));
         System.out.println("start 61");
         registerNewUser(user);
+        setCookieCodeForUser(user);
+        Cookie userCode = Cookie.make("cookieCode", user.getCookieCode());
+        userCode.setMaxAge(600);
+        userCode.setHttpOnly(true);
+        setCookie(exchange, userCode);
         sendRegResult(exchange);
 
         redirect303(exchange, "/registerResult");
@@ -257,7 +262,6 @@ public class Lesson44Server extends BasicServer {
         if (user == null) {
             Map<String, Object> invalidLogin = new HashMap<>();
             invalidLogin.put("buttonText", "Войти");
-//          invalidLogin.put("class", "email");
             invalidLogin.put("postLink", "/login");
             invalidLogin.put("invalidLoginError", true);
             renderTemplate(exchange, "/auth/login.ftlh", invalidLogin);
@@ -280,10 +284,14 @@ public class Lesson44Server extends BasicServer {
         }
     }
 
+    private void setCookieCodeForUser(User u) {
+        u.setCookieCode(CodeGenerator.makeCode(u.getEmail() + u.getLogin()));
+    }
+
     private User checkLogin(String login, String password) {
         for (User u : bookLender.getUsers()) {
             if (u.getLogin().equals(login) && u.getPassword().equals(password)) {
-                u.setCookieCode(CodeGenerator.makeCode(u.getEmail() + u.getLogin()));
+                setCookieCodeForUser(u);
                 return u;
             }
 

@@ -60,6 +60,32 @@
           "link": "book"
         }
       ]
+    },
+    {
+      "id": 0,
+      "login": "somegmail@dot.com",
+      "email": "somegmail@dot.com",
+      "password": "somegmail@dot.com",
+      "currentBooks": [],
+      "pastBooks": []
+    },
+    {
+      "id": 0,
+      "login": "chagai.nikita@gmail.com",
+      "email": "chagai.nikita@gmail.com",
+      "password": "chagai.nikita@gmail.com",
+      "currentBooks": [],
+      "pastBooks": [
+        {
+          "id": 3,
+          "name": "Игра престолов",
+          "author": "Джордж Мартин",
+          "photo": "images/0002-min-png.png",
+          "status": "На месте",
+          "description": "Игра престолов» (англ. A Game of Thrones) — роман в жанре фэнтези",
+          "link": "book"
+        }
+      ]
     }
   ],
   "books": [
