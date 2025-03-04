@@ -5,6 +5,7 @@ import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateExceptionHandler;
+import kg.attractor.java.enums.BookStatuses;
 import kg.attractor.java.models.Book;
 import kg.attractor.java.models.BookLender;
 import kg.attractor.java.models.User;
@@ -99,7 +100,7 @@ public class Lesson44Server extends BasicServer {
     private void resetBookParameter(Book book) {
         book.setUserName(null);
         book.setIssueDate(null);
-        book.setStatus("На месте");
+        book.setStatus(BookStatuses.ONTHESPOT.getTitle());
     }
 
     private void saveBook(HttpExchange exchange) {
@@ -134,7 +135,7 @@ public class Lesson44Server extends BasicServer {
         } else {
             user.addBookInCurBooks(book);
             book.setUserName(user.getLogin());
-            book.setStatus("Выдана");
+            book.setStatus(BookStatuses.ISSUED.getTitle());
             book.setIssueDate(LocalDate.now());
             FileUtil.writeToFile(bookLender);
             renderTemplate(exchange, "/books.html", getBookList());
@@ -408,11 +409,4 @@ public class Lesson44Server extends BasicServer {
         return users;
     }
 
-    private List<User> getExampleUsersForCheckRegister() {
-        List<User> users = new ArrayList<>();
-        users.add(new User("nikita321", "nikita@gmail.com", "321"));
-        users.add(new User("pushkin5", "pushkin@gmail.com", "password"));
-        users.add(new User("clown", "clown@gmail.com", "superpassword"));
-        return users;
-    }
 }
