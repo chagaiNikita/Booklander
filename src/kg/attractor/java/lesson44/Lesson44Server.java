@@ -31,6 +31,11 @@ public class Lesson44Server extends BasicServer {
 
     public Lesson44Server(String host, int port) throws IOException {
         super(host, port);
+        requestRegister();
+        bookLender = FileUtil.readFromFile();
+    }
+
+    private void requestRegister() {
         registerGet("/books", this::freemarkerSampleHandler);
         registerGet("/book", this::freemarkerSampleHandler);
         registerGet("/employee", this::freemarkerSampleHandler);
@@ -42,9 +47,25 @@ public class Lesson44Server extends BasicServer {
         registerGet("/profile", this::profileGetForLink);
         registerPost("/save-book", this::saveBook);
         registerPost("/return-book", this::returnBook);
-        bookLender = FileUtil.readFromFile();
+        registerPost("/logout", this::logoutHandler);
         registerSuccess = true;
         fieldIsBlank = false;
+    }
+
+    private void logoutHandler(HttpExchange exchange) {
+        Map<String, String> cookies = Cookie.parse(getCookie(exchange));
+        String cookieVal = cookies.getOrDefault("cookieCode", null);
+        User user = getUserByCookieCode(cookieVal);
+        if (user != null) {
+            user.setCookieCode(null);
+            Cookie userCode = Cookie.make("cookieCode", "");
+            userCode.setMaxAge(0);
+            userCode.setHttpOnly(true);
+            setCookie(exchange, userCode);
+            redirect303(exchange, "/login");
+        } else {
+            dontHaveBookError(exchange, "Невозможно совершить данное действие без авторизации", true);
+        }
     }
 
     private void returnBook(HttpExchange exchange) {
@@ -59,19 +80,19 @@ public class Lesson44Server extends BasicServer {
                 FileUtil.writeToFile(bookLender);
                 renderTemplate(exchange, "/books.html", getBookList());
             } else {
-                dontHaveBookError(exchange);
+                dontHaveBookError(exchange, "Невозможно вернуть книгу т.к она не находится у вас", false);
             }
         } else {
             notAuthErrorHandler(exchange, bookLender.getBooks());
         }
     }
 
-    private void dontHaveBookError(HttpExchange exchange) {
+    private void dontHaveBookError(HttpExchange exchange, String errorMessage, Boolean authError) {
         Map<String, Object> map = new HashMap<>();
         map.put("books", bookLender.getBooks());
         map.put("error", true);
-        map.put("message", "Невозможно вернуть книгу т.к она не находится у вас");
-        map.put("authError", true);
+        map.put("message", errorMessage);
+        map.put("authError", authError);
         renderTemplate(exchange, "/books.html", map);
     }
 
