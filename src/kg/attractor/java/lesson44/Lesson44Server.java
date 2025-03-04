@@ -161,7 +161,31 @@ public class Lesson44Server extends BasicServer {
     }
 
     private void profileGetForLink(HttpExchange exchange) {
-        renderTemplate(exchange, "/profile.html", null);
+        Map<String, String> cookies = Cookie.parse(getCookie(exchange));
+        String cookieVal = cookies.getOrDefault("cookieCode", null);
+        User user = getUserByCookieCode(cookieVal);
+        Map<String, Object> model = new HashMap<>();
+        if (user != null) {
+
+            model.put("user", user);
+            if (user.getCurrentBooks() != null) {
+                model.put("currentBooks", user.getCurrentBooks());
+                model.put("haveCurBooks", true);
+            }
+            if (user.getPastBooks() != null) {
+                model.put("havePastBooks", true);
+                model.put("pastBooks", user.getPastBooks());
+            }
+            renderTemplate(exchange, "/profile.html", model);
+        } else {
+            String errorMessage = "Вы не были авторизованы";
+            model.put("message", "error");
+            model.put("class", "error");
+            model.put("link", "/login");
+            model.put("linkMessage", errorMessage);
+            renderTemplate(exchange, "auth/registerResult.html", model);
+        }
+
 
     }
 
