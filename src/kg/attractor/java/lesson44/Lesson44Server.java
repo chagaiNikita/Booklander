@@ -64,7 +64,7 @@ public class Lesson44Server extends BasicServer {
             setCookie(exchange, userCode);
             redirect303(exchange, "/login");
         } else {
-            dontHaveBookError(exchange, "Невозможно совершить данное действие без авторизации", true);
+            booksError(exchange, "Невозможно совершить данное действие без авторизации", true);
         }
     }
 
@@ -80,14 +80,14 @@ public class Lesson44Server extends BasicServer {
                 FileUtil.writeToFile(bookLender);
                 renderTemplate(exchange, "/books.html", getBookList());
             } else {
-                dontHaveBookError(exchange, "Невозможно вернуть книгу т.к она не находится у вас", false);
+                booksError(exchange, "Невозможно вернуть книгу т.к она не находится у вас", false);
             }
         } else {
             notAuthErrorHandler(exchange, bookLender.getBooks());
         }
     }
 
-    private void dontHaveBookError(HttpExchange exchange, String errorMessage, Boolean authError) {
+    private void booksError(HttpExchange exchange, String errorMessage, Boolean authError) {
         Map<String, Object> map = new HashMap<>();
         map.put("books", bookLender.getBooks());
         map.put("error", true);
