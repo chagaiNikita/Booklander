@@ -7,17 +7,6 @@
       "password": "somepo4ta@gmail.com",
       "currentBooks": [
         {
-          "id": 2,
-          "name": "Колобок",
-          "author": "Алексей Толстой",
-          "photo": "images/0002-min-png.png",
-          "status": "Выдана",
-          "description": "Колобок описание",
-          "link": "book",
-          "issueDate": "2025-03-04",
-          "userName": "somepo4ta@gmail.com"
-        },
-        {
           "id": 1,
           "name": "Война и мир",
           "author": "Лев Толстой",
@@ -25,7 +14,7 @@
           "status": "Выдана",
           "description": "Война и мир» — огромная сага",
           "link": "book",
-          "issueDate": "2025-03-04",
+          "issueDate": "2025-03-06",
           "userName": "somepo4ta@gmail.com"
         }
       ],
@@ -40,6 +29,62 @@
           "link": "book",
           "issueDate": "2025-03-04",
           "userName": "somepo4ta@gmail.com"
+        },
+        {
+          "id": 1,
+          "name": "Война и мир",
+          "author": "Лев Толстой",
+          "photo": "images/0002-min-png.png",
+          "status": "Выдана",
+          "description": "Война и мир» — огромная сага",
+          "link": "book",
+          "issueDate": "2025-03-06",
+          "userName": "somepo4ta@gmail.com"
+        },
+        {
+          "id": 2,
+          "name": "Колобок",
+          "author": "Алексей Толстой",
+          "photo": "images/0002-min-png.png",
+          "status": "На месте",
+          "description": "Колобок описание",
+          "link": "book"
+        },
+        {
+          "id": 3,
+          "name": "Игра престолов",
+          "author": "Джордж Мартин",
+          "photo": "images/0002-min-png.png",
+          "status": "На месте",
+          "description": "Игра престолов» (англ. A Game of Thrones) — роман в жанре фэнтези",
+          "link": "book"
+        },
+        {
+          "id": 3,
+          "name": "Игра престолов",
+          "author": "Джордж Мартин",
+          "photo": "images/0002-min-png.png",
+          "status": "На месте",
+          "description": "Игра престолов» (англ. A Game of Thrones) — роман в жанре фэнтези",
+          "link": "book"
+        },
+        {
+          "id": 3,
+          "name": "Игра престолов",
+          "author": "Джордж Мартин",
+          "photo": "images/0002-min-png.png",
+          "status": "На месте",
+          "description": "Игра престолов» (англ. A Game of Thrones) — роман в жанре фэнтези",
+          "link": "book"
+        },
+        {
+          "id": 3,
+          "name": "Игра престолов",
+          "author": "Джордж Мартин",
+          "photo": "images/0002-min-png.png",
+          "status": "На месте",
+          "description": "Игра престолов» (англ. A Game of Thrones) — роман в жанре фэнтези",
+          "link": "book"
         }
       ]
     },
@@ -97,7 +142,7 @@
       "status": "Выдана",
       "description": "Война и мир» — огромная сага",
       "link": "book",
-      "issueDate": "2025-03-04",
+      "issueDate": "2025-03-06",
       "userName": "somepo4ta@gmail.com"
     },
     {
@@ -105,11 +150,9 @@
       "name": "Колобок",
       "author": "Алексей Толстой",
       "photo": "images/0002-min-png.png",
-      "status": "Выдана",
+      "status": "На месте",
       "description": "Колобок описание",
-      "link": "book",
-      "issueDate": "2025-03-04",
-      "userName": "somepo4ta@gmail.com"
+      "link": "book"
     },
     {
       "id": 3,

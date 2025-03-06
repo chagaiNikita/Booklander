@@ -15,6 +15,7 @@ import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public abstract class BasicServer {
@@ -30,17 +31,26 @@ public abstract class BasicServer {
     }
 
     private static String makeKey(String method, String route) {
+        route = ensureStartsWithSlash(route);
         return String.format("%s %s", method.toUpperCase(), route);
     }
 
     private static String makeKey(HttpExchange exchange) {
         var method = exchange.getRequestMethod();
         var path = exchange.getRequestURI().getPath();
+        if (path.endsWith("/") && path.length() > 1) {
+            path = path.substring(0, path.length() - 1);
+        }
 
         var index = path.lastIndexOf(".");
         var extOrPath = index != -1 ? path.substring(index).toLowerCase() : path;
 
         return makeKey(method, extOrPath);
+    }
+
+    private static String ensureStartsWithSlash(String route) {
+        if (route.startsWith(".")) return route;
+        return route.startsWith("/") ? route : "/" + route;
     }
 
     private static void setContentType(HttpExchange exchange, ContentType type) {
@@ -69,11 +79,15 @@ public abstract class BasicServer {
     }
 
     protected final void registerGet(String route, RouteHandler handler) {
-        getRoutes().put("GET " + route, handler);
+        registerGenericHandler("GET", route, handler);
     }
 
-    protected final void registerPost(String route, RouteHandler handler) {
-        getRoutes().put("POST " + route, handler);
+    protected void registerPost(String route, RouteHandler handler) {
+        registerGenericHandler("POST", route, handler);
+    }
+
+    private void registerGenericHandler(String method, String route, RouteHandler handler) {
+        getRoutes().put(makeKey(method, route), handler);
     }
 
     protected final void registerFileHandler(String fileExt, ContentType type) {
@@ -163,5 +177,9 @@ public abstract class BasicServer {
         return exchange.getRequestHeaders()
                 .getOrDefault("Cookie", List.of(""))
                 .get(0);
+    }
+    protected String getQueryParams(HttpExchange exchange) {
+        String queryParams = exchange.getRequestURI().getQuery();
+        return Objects.nonNull(queryParams) ? queryParams : "";
     }
 }
