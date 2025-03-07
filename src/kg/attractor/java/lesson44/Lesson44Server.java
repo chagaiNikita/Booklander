@@ -367,8 +367,8 @@ public class Lesson44Server extends BasicServer {
         renderTemplate(exchange, getFileNameHTML(exchange.getRequestURI().getPath()), model);
     }
     private Object getModel(HttpExchange exchange) {
-        if (exchange.getRequestURI().getPath().equals("/book")) return getBookInfo();
-//        if (exchange.getRequestURI().getPath().equals("/employee")) return getEmployeeInfo();
+        if (exchange.getRequestURI().getPath().equals("/book")) return getBookInfo(exchange);
+        if (exchange.getRequestURI().getPath().equals("/employee")) return getEmployeeInfo(exchange);
         else return getBookList();
     }
 
@@ -407,9 +407,35 @@ public class Lesson44Server extends BasicServer {
         return f;
     }
 
-    private Map<String, Book> getBookInfo() {
+    private Map<String, Object> getEmployeeInfo(HttpExchange exchange) {
+        String query = getQueryParams(exchange);
+        Map<String, String> params = Utils.parseUrlEncoded(query, "&");
+        User user = null;
+        for (User u : bookLender.getUsers()) {
+            if (u.getId() == Integer.parseInt(params.get("user-id"))) {
+                user = u;
+                break;
+            }
+        }
+        Map<String, Object> employee = new HashMap<>();
+        employee.put("user", user);
+        employee.put("currentBooks", user.getCurrentBooks(bookLender));
+        employee.put("pastBooks", user.getPastBooks(bookLender));
+        return employee;
+    }
+
+    private Map<String, Book> getBookInfo(HttpExchange exchange) {
+        String query = getQueryParams(exchange);
+        Map<String, String> params = Utils.parseUrlEncoded(query, "&");
+        Book book = null;
+        for (Book b : bookLender.getBooks()) {
+            if (b.getId() == Integer.parseInt(params.get("book-id"))) {
+                book = b;
+                break;
+            }
+        }
         Map<String, Book> f = new HashMap<>();
-        f.put("book", bookLender.getBooks().get(0));
+        f.put("book", book);
 
         return f;
     }

@@ -20,7 +20,7 @@
       "id": 1,
       "name": "Война и мир",
       "author": "Лев Толстой",
-      "photo": "images/0002-min-png.png",
+      "photo": "images/bookImages/war\u0026peace.png",
       "status": "Выдана",
       "description": "Война и мир» — огромная сага"
     },
@@ -28,7 +28,7 @@
       "id": 2,
       "name": "Колобок",
       "author": "Алексей Толстой",
-      "photo": "images/0002-min-png.png",
+      "photo": "images/bookImages/bun.jpg",
       "status": "Выдана",
       "description": "Колобок описание"
     },
@@ -36,12 +36,42 @@
       "id": 3,
       "name": "Игра престолов",
       "author": "Джордж Мартин",
-      "photo": "images/0002-min-png.png",
+      "photo": "images/bookImages/Game_of_Thrones.jpg",
       "status": "На месте",
       "description": "Игра престолов» (англ. A Game of Thrones) — роман в жанре фэнтези"
     }
   ],
   "history": [
+    {
+      "bookId": 1,
+      "userId": 2,
+      "issueDate": "2025-03-07",
+      "returnDate": "2025-03-07"
+    },
+    {
+      "bookId": 2,
+      "userId": 2,
+      "issueDate": "2025-03-07",
+      "returnDate": "2025-03-07"
+    },
+    {
+      "bookId": 3,
+      "userId": 1,
+      "issueDate": "2025-03-07",
+      "returnDate": "2025-03-07"
+    },
+    {
+      "bookId": 3,
+      "userId": 2,
+      "issueDate": "2025-03-07",
+      "returnDate": "2025-03-07"
+    },
+    {
+      "bookId": 2,
+      "userId": 2,
+      "issueDate": "2025-03-07",
+      "returnDate": "2025-03-07"
+    },
     {
       "bookId": 1,
       "userId": 2,

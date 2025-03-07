@@ -11,19 +11,7 @@ public class User {
     private String login;
     private String email;
     private String password;
-//    private List<Book> currentBooks = new ArrayList<>();
-//    private List<Book> pastBooks = new ArrayList<>();
 
-//    public void removeBookFromCurBooks(Book book) {
-//        currentBooks.remove(book);
-//        pastBooks.add(book);
-//    }
-
-//    public void addBookInCurBooks(Book book) {
-//        System.out.println("Добавление книги в юзере");
-//        currentBooks.add(book);
-//        System.out.println("Добавление книги в юзере2");
-//    }
 
     public String getCookieCode() {
         return cookieCode;
@@ -82,10 +70,5 @@ public class User {
         this.fullName = fullName;
     }
 
-//    public User(int id, String fullName, List<Book> currentBooks, List<Book> pastBooks) {
-//        this.id = id;
-//        this.fullName = fullName;
-//        this.currentBooks = currentBooks;
-//        this.pastBooks = pastBooks;
-//    }
+
 }

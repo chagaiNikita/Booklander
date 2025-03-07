@@ -24,28 +24,35 @@
     <#list books as book>
         <#assign userName = "Не указано">
         <#assign issueDate = "Не указано">
+        <#assign userId = "Не указано">
         <#list bookHistories as bookHistory>
             <#if bookHistory.bookId == book.id>
                 <#list users as user>
                     <#if user.id == bookHistory.userId && !bookHistory.returnDate??>
+                        <#assign userId = user.id>
                         <#assign userName = user.fullName>
                         <#assign issueDate = bookHistory.issueDate>
                     </#if>
                 <#else>
                     <#assign issueDate = "Не указано">
                     <#assign userName = "Не указано">
+                    <#assign userId = "Не указано">
                 </#list>
             </#if>
         </#list>
     <div class="row ${book?item_parity} flex">
         <div class="column">${book.id!"-- не указано --"}</div>
-        <div class="column"><a href="${book.link!"#"}">${book.name!"-- не указано --"}</a></div>
+        <div class="column"><a href="/book?book-id=${book.id!"#"}">${book.name!"-- не указано --"}</a></div>
         <div class="column">${book.author!"-- не указано --"}</div>
         <div class="column">${book.status!"-- не указано --"}</div>
         <div class="column">${issueDate}</div>
         <div class="column">
-            <a href="/employee#">${userName}</a>
-            </div>
+            <#if userName == "Не указано">
+            <span>${userName}</span>
+            <#else>
+                <a href="/employee?user-id=${userId}"#">${userName}</a>
+            </#if>
+        </div>
         <div class="column">
             <form action="/save-book" method="POST">
                 <input type="hidden" name="id" value="${book.id!""}">
