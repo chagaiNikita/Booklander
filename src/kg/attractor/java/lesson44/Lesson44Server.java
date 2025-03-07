@@ -166,7 +166,6 @@ public class Lesson44Server extends BasicServer {
         User user = getUserByCookieCode(cookieVal);
         Map<String, Object> model = new HashMap<>();
         if (user != null) {
-
             model.put("user", user);
             if (user.getCurrentBooks(bookLender) != null) {
                 model.put("currentBooks", user.getCurrentBooks(bookLender));
@@ -183,7 +182,7 @@ public class Lesson44Server extends BasicServer {
             model.put("class", "error");
             model.put("link", "/login");
             model.put("linkMessage", errorMessage);
-            renderTemplate(exchange, "auth/registerResult.html", model);
+            renderTemplate(exchange, "auth/registerResult.ftlh", model);
         }
 
 
@@ -266,7 +265,7 @@ public class Lesson44Server extends BasicServer {
             map.put("linkMessage", errorMessage);
         }
 
-        renderTemplate(exchange, "auth/registerResult.html", map);
+        renderTemplate(exchange, "auth/registerResult.ftlh", map);
     }
 
     private void registerGet(HttpExchange exchange) {
