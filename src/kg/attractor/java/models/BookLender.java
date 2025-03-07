@@ -6,7 +6,17 @@ import java.util.List;
 public class BookLender {
     private List<User> users = new ArrayList<>();
     private List<Book> books = new ArrayList<>();
+    private List<BookHistory> history = new ArrayList<>();
     private final int bookLimitOnEmployee = 2;
+
+    public void addHistory(BookHistory history) {
+        this.history.add(history);
+    }
+
+    public List<BookHistory> getHistory() {
+        return history;
+    }
+
 
     public List<Book> getBooks() {
         return books;

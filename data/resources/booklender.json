@@ -4,88 +4,7 @@
       "id": 0,
       "login": "somepo4ta@gmail.com",
       "email": "somepo4ta@gmail.com",
-      "password": "somepo4ta@gmail.com",
-      "currentBooks": [
-        {
-          "id": 2,
-          "name": "Колобок",
-          "author": "Алексей Толстой",
-          "photo": "images/0002-min-png.png",
-          "status": "Выдана",
-          "description": "Колобок описание",
-          "link": "book",
-          "issueDate": "2025-03-04",
-          "userName": "somepo4ta@gmail.com"
-        },
-        {
-          "id": 1,
-          "name": "Война и мир",
-          "author": "Лев Толстой",
-          "photo": "images/0002-min-png.png",
-          "status": "Выдана",
-          "description": "Война и мир» — огромная сага",
-          "link": "book",
-          "issueDate": "2025-03-04",
-          "userName": "somepo4ta@gmail.com"
-        }
-      ],
-      "pastBooks": [
-        {
-          "id": 1,
-          "name": "Война и мир",
-          "author": "Лев Толстой",
-          "photo": "images/0002-min-png.png",
-          "status": "Выдана",
-          "description": "Война и мир» — огромная сага",
-          "link": "book",
-          "issueDate": "2025-03-04",
-          "userName": "somepo4ta@gmail.com"
-        }
-      ]
-    },
-    {
-      "id": 0,
-      "login": "blabla@gmail.com",
-      "email": "blabla@gmail.com",
-      "password": "blabla@gmail.com",
-      "currentBooks": [],
-      "pastBooks": [
-        {
-          "id": 3,
-          "name": "Игра престолов",
-          "author": "Джордж Мартин",
-          "photo": "images/0002-min-png.png",
-          "status": "На месте",
-          "description": "Игра престолов» (англ. A Game of Thrones) — роман в жанре фэнтези",
-          "link": "book"
-        }
-      ]
-    },
-    {
-      "id": 0,
-      "login": "somegmail@dot.com",
-      "email": "somegmail@dot.com",
-      "password": "somegmail@dot.com",
-      "currentBooks": [],
-      "pastBooks": []
-    },
-    {
-      "id": 0,
-      "login": "chagai.nikita@gmail.com",
-      "email": "chagai.nikita@gmail.com",
-      "password": "chagai.nikita@gmail.com",
-      "currentBooks": [],
-      "pastBooks": [
-        {
-          "id": 3,
-          "name": "Игра престолов",
-          "author": "Джордж Мартин",
-          "photo": "images/0002-min-png.png",
-          "status": "На месте",
-          "description": "Игра престолов» (англ. A Game of Thrones) — роман в жанре фэнтези",
-          "link": "book"
-        }
-      ]
+      "password": "somepo4ta@gmail.com"
     }
   ],
   "books": [
@@ -94,22 +13,18 @@
       "name": "Война и мир",
       "author": "Лев Толстой",
       "photo": "images/0002-min-png.png",
-      "status": "Выдана",
+      "status": "На месте",
       "description": "Война и мир» — огромная сага",
-      "link": "book",
-      "issueDate": "2025-03-04",
-      "userName": "somepo4ta@gmail.com"
+      "link": "book"
     },
     {
       "id": 2,
       "name": "Колобок",
       "author": "Алексей Толстой",
       "photo": "images/0002-min-png.png",
-      "status": "Выдана",
+      "status": "На месте",
       "description": "Колобок описание",
-      "link": "book",
-      "issueDate": "2025-03-04",
-      "userName": "somepo4ta@gmail.com"
+      "link": "book"
     },
     {
       "id": 3,
@@ -119,6 +34,32 @@
       "status": "На месте",
       "description": "Игра престолов» (англ. A Game of Thrones) — роман в жанре фэнтези",
       "link": "book"
+    }
+  ],
+  "history": [
+    {
+      "bookId": 1,
+      "userId": 0,
+      "issueDate": "2025-03-07",
+      "returnDate": "2025-03-07"
+    },
+    {
+      "bookId": 2,
+      "userId": 0,
+      "issueDate": "2025-03-07",
+      "returnDate": "2025-03-07"
+    },
+    {
+      "bookId": 1,
+      "userId": 0,
+      "issueDate": "2025-03-07",
+      "returnDate": "2025-03-07"
+    },
+    {
+      "bookId": 2,
+      "userId": 0,
+      "issueDate": "2025-03-07",
+      "returnDate": "2025-03-07"
     }
   ],
   "bookLimitOnEmployee": 2

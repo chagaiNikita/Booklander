@@ -2,6 +2,7 @@ package kg.attractor.java.models;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class User {
     private int id;
@@ -10,20 +11,19 @@ public class User {
     private String login;
     private String email;
     private String password;
-    private List<Book> currentBooks = new ArrayList<>();
-    private List<Book> pastBooks = new ArrayList<>();
-    private String link;
+//    private List<Book> currentBooks = new ArrayList<>();
+//    private List<Book> pastBooks = new ArrayList<>();
 
-    public void removeBookFromCurBooks(Book book) {
-        currentBooks.remove(book);
-        pastBooks.add(book);
-    }
+//    public void removeBookFromCurBooks(Book book) {
+//        currentBooks.remove(book);
+//        pastBooks.add(book);
+//    }
 
-    public void addBookInCurBooks(Book book) {
-        System.out.println("Добавление книги в юзере");
-        currentBooks.add(book);
-        System.out.println("Добавление книги в юзере2");
-    }
+//    public void addBookInCurBooks(Book book) {
+//        System.out.println("Добавление книги в юзере");
+//        currentBooks.add(book);
+//        System.out.println("Добавление книги в юзере2");
+//    }
 
     public String getCookieCode() {
         return cookieCode;
@@ -31,10 +31,6 @@ public class User {
 
     public void setCookieCode(String cookieCode) {
         this.cookieCode = cookieCode;
-    }
-
-    public String getLink() {
-        return link;
     }
 
     public int getId() {
@@ -45,8 +41,15 @@ public class User {
         return fullName;
     }
 
-    public List<Book> getCurrentBooks() {
-        return currentBooks;
+    public List<Book> getCurrentBooks(BookLender bookLender) {
+        int currentUserId = this.id;
+        return bookLender.getBooks().stream()
+                .filter(book -> bookLender.getHistory().stream()
+                        .anyMatch(history -> history.getUserId() == currentUserId
+                                && history.getBookId() == book.getId()
+                                && history.getReturnDate() == null))
+                .collect(Collectors.toList());
+
     }
 
     public String getLogin() {
@@ -61,8 +64,14 @@ public class User {
         return password;
     }
 
-    public List<Book> getPastBooks() {
-        return pastBooks;
+    public List<Book> getPastBooks(BookLender bookLender) {
+        int currentUserId = this.id;
+        return bookLender.getBooks().stream()
+                .filter(book -> bookLender.getHistory().stream()
+                        .anyMatch(history -> history.getUserId() == currentUserId
+                                && history.getBookId() == book.getId()
+                                && history.getReturnDate() != null))
+                .collect(Collectors.toList());
     }
 
     public User(String login, String email, String password) {
@@ -71,10 +80,10 @@ public class User {
         this.password = password;
     }
 
-    public User(int id, String fullName, List<Book> currentBooks, List<Book> pastBooks) {
-        this.id = id;
-        this.fullName = fullName;
-        this.currentBooks = currentBooks;
-        this.pastBooks = pastBooks;
-    }
+//    public User(int id, String fullName, List<Book> currentBooks, List<Book> pastBooks) {
+//        this.id = id;
+//        this.fullName = fullName;
+//        this.currentBooks = currentBooks;
+//        this.pastBooks = pastBooks;
+//    }
 }
