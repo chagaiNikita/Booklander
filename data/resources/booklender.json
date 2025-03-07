@@ -60,6 +60,18 @@
       "userId": 0,
       "issueDate": "2025-03-07",
       "returnDate": "2025-03-07"
+    },
+    {
+      "bookId": 1,
+      "userId": 0,
+      "issueDate": "2025-03-07",
+      "returnDate": "2025-03-07"
+    },
+    {
+      "bookId": 2,
+      "userId": 0,
+      "issueDate": "2025-03-07",
+      "returnDate": "2025-03-07"
     }
   ],
   "bookLimitOnEmployee": 2

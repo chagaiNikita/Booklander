@@ -11,29 +11,11 @@ public class Book {
     private String status;
     private String description;
     private String link;
-    private LocalDate issueDate;
-
-//    public void setUserName(String userName) {
-//        this.userName = userName;
-//    }
-
-//    private String userName;
-
-//    public String getUserName() {
-//        return userName;
-//    }
-
-    public LocalDate getIssueDate() {
-        return issueDate;
-    }
 
     public void setStatus(String status) {
         this.status = status;
     }
 
-    public void setIssueDate(LocalDate issueDate) {
-        this.issueDate = issueDate;
-    }
 
     public String getDescription() {
         return description;
@@ -75,7 +57,7 @@ public class Book {
         return link;
     }
 
-    public Book(int id, String name, String photo, String author, String status, String link, String description, LocalDate issueDate, String userName) {
+    public Book(int id, String name, String photo, String author, String status, String link, String description) {
         this.id = id;
         this.name = name;
         this.author = author;
@@ -83,8 +65,7 @@ public class Book {
         this.status = status;
         this.photo = photo;
         this.description = description;
-        this.issueDate = issueDate;
-//        this.userName = userName;
+
     }
 
 }

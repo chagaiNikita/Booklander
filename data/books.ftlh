@@ -22,25 +22,28 @@
         <div class="column">Действие</div>
     </div>
     <#list books as book>
+        <#assign userName = "Не указано">
+        <#assign issueDate = "Не указано">
+        <#list bookHistories as bookHistory>
+            <#if bookHistory.bookId == book.id>
+                <#list users as user>
+                    <#if user.id == bookHistory.userId && !bookHistory.returnDate??>
+                        <#assign userName = user.email>
+                        <#assign issueDate = bookHistory.issueDate>
+                    </#if>
+                <#else>
+                    <#assign issueDate = "Не указано">
+                    <#assign userName = "Не указано">
+                </#list>
+            </#if>
+        </#list>
     <div class="row ${book?item_parity} flex">
         <div class="column">${book.id!"-- не указано --"}</div>
         <div class="column"><a href="${book.link!"#"}">${book.name!"-- не указано --"}</a></div>
         <div class="column">${book.author!"-- не указано --"}</div>
         <div class="column">${book.status!"-- не указано --"}</div>
-        <div class="column">${book.issueDate!"-- не указано --"}</div>
+        <div class="column">${issueDate}</div>
         <div class="column">
-            <#assign userName = "Не указано">
-            <#list bookHistories as bookHistory>
-            <#if bookHistory.bookId == book.id>
-                <#list users as user>
-                    <#if user.id == bookHistory.userId && !bookHistory.returnDate??>
-                        <#assign userName = user.email>
-                    </#if>
-                    <#else>
-                        <#assign userName = "Не указано">
-                </#list>
-        </#if>
-    </#list>
             <a href="/employee#">${userName}</a>
             </div>
         <div class="column">

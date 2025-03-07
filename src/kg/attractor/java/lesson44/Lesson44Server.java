@@ -103,8 +103,6 @@ public class Lesson44Server extends BasicServer {
     }
 
     private void resetBookParameter(Book book) {
-//        book.setUserName(null);
-        book.setIssueDate(null);
         book.setStatus(BookStatuses.ONTHESPOT.getTitle());
     }
 
@@ -142,7 +140,6 @@ public class Lesson44Server extends BasicServer {
             bookIsBusyError(exchange, bookLender.getBooks());
         } else {
             book.setStatus(BookStatuses.ISSUED.getTitle());
-            book.setIssueDate(LocalDate.now());
             BookHistory history = new BookHistory(book.getId(), user.getId(),LocalDate.now());
             bookLender.addHistory(history);
             FileUtil.writeToFile(bookLender);
@@ -412,44 +409,10 @@ public class Lesson44Server extends BasicServer {
 
     private Map<String, Book> getBookInfo() {
         Map<String, Book> f = new HashMap<>();
-        f.put("book", getExampleBooks().getFirst());
+        f.put("book", bookLender.getBooks().get(0));
 
         return f;
     }
 
-//    private Map<String, Object> getEmployeeInfo() {
-//        Map<String, Object> employee = new HashMap<>();
-//        employee.put("user", getExampleUsers().getFirst());
-//        employee.put("currentBooks", getExampleUsers().getFirst().getCurrentBooks());
-//        employee.put("pastBooks", getExampleUsers().getFirst().getPastBooks());
-//        return employee;
-//    }
-
-    private List<Book> getExampleBooks() {
-        List<Book> books = new ArrayList<>();
-        books.add(new Book(1, "Война и мир", "images/0002-min-png.png", "Лев Толстой", "Выдана", "book",
-                "Война и мир» — огромная сага", LocalDate.of(2020, 12, 11), "Michael"));
-        books.add(new Book(2, "Колобок", "images/0002-min-png.png" , "Алексей Толстой", "На месте", "book", "Колобок описание", null, null));
-        books.add(new Book(3, "Игра престолов", "images/0002-min-png.png", "Джордж Мартин", "Выдана", "book", "Игра престолов» (англ. A Game of Thrones) — роман в жанре фэнтези", LocalDate.of(2023, 5, 1), "Nikita"));
-        bookLender.setBooks(books);
-
-        return books;
-
-    }
-
-//    private List<User> getExampleUsers() {
-//        List<User> users = new ArrayList<>();
-//        List<Book> books = getExampleBooks();
-//        List<Book> currentBook = books.stream()
-//                .filter(b -> b.getUserName() != null)
-//                .filter(book -> book.getUserName().equals("Michael"))
-//                        .toList();
-//        List<Book> pastBooks = new ArrayList<>();
-//        pastBooks.add(books.get(1));
-//        pastBooks.add(books.get(2));
-//        users.add(new User(1, "Michael", currentBook, pastBooks));
-//        bookLender.setUsers(users);
-//        return users;
-//    }
 
 }
