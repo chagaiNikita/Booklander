@@ -9,7 +9,7 @@
     },
     {
       "id": 2,
-      "fullName": "Nikita",
+      "fullName": "Maks",
       "login": "fsdfsfd@gmail.com",
       "email": "fsdfsfd@gmail.com",
       "password": "fsdfsfd@gmail.com"
@@ -28,7 +28,7 @@
       "name": "Война и мир",
       "author": "Лев Толстой",
       "photo": "images/bookImages/war\u0026peace.png",
-      "status": "Выдана",
+      "status": "На месте",
       "description": "Война и мир» — огромная сага"
     },
     {
@@ -44,66 +44,20 @@
       "name": "Игра престолов",
       "author": "Джордж Мартин",
       "photo": "images/bookImages/Game_of_Thrones.jpg",
-      "status": "Выдана",
+      "status": "На месте",
       "description": "Игра престолов» (англ. A Game of Thrones) — роман в жанре фэнтези"
     }
   ],
   "history": [
     {
       "bookId": 1,
-      "userId": 2,
-      "issueDate": "2025-03-07",
-      "returnDate": "2025-03-07"
-    },
-    {
-      "bookId": 2,
-      "userId": 2,
-      "issueDate": "2025-03-07",
-      "returnDate": "2025-03-07"
-    },
-    {
-      "bookId": 3,
       "userId": 1,
       "issueDate": "2025-03-07",
       "returnDate": "2025-03-07"
     },
     {
-      "bookId": 3,
-      "userId": 2,
-      "issueDate": "2025-03-07",
-      "returnDate": "2025-03-07"
-    },
-    {
       "bookId": 2,
-      "userId": 2,
-      "issueDate": "2025-03-07",
-      "returnDate": "2025-03-07"
-    },
-    {
-      "bookId": 1,
-      "userId": 2,
-      "issueDate": "2025-03-07"
-    },
-    {
-      "bookId": 2,
-      "userId": 2,
-      "issueDate": "2025-03-07"
-    },
-    {
-      "bookId": 3,
       "userId": 1,
-      "issueDate": "2025-03-07",
-      "returnDate": "2025-03-07"
-    },
-    {
-      "bookId": 3,
-      "userId": 3,
-      "issueDate": "2025-03-07",
-      "returnDate": "2025-03-07"
-    },
-    {
-      "bookId": 3,
-      "userId": 3,
       "issueDate": "2025-03-07"
     }
   ],
