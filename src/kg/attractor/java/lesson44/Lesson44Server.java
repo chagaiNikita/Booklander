@@ -92,9 +92,7 @@ public class Lesson44Server extends BasicServer {
 
     private void booksError(HttpExchange exchange, String errorMessage, Boolean authError) {
         Map<String, Object> map = new HashMap<>();
-        map.put("books", bookLender.getBooks());
-        map.put("bookHistories", bookLender.getHistory());
-        map.put("users", bookLender.getUsers());
+        map.putAll(getBookList());
         map.put("error", true);
         map.put("message", errorMessage);
         map.put("authError", authError);
@@ -116,9 +114,7 @@ public class Lesson44Server extends BasicServer {
             System.out.println("Начата добавка книги");
             if (user.getCurrentBooks(bookLender).size() == bookLender.getBookLimitOnEmployee()) {
                 Map<String, Object> map = new HashMap<>();
-                map.put("users", bookLender.getUsers());
-                map.put("bookHistories", bookLender.getHistory());
-                map.put("books", bookList);
+                map.putAll(getBookList());
                 map.put("error", true);
                 map.put("message", "Нельзя взять больше " + bookLender.getBookLimitOnEmployee() + " книг!");
                 renderTemplate(exchange, "/books.ftlh", map);
@@ -149,9 +145,7 @@ public class Lesson44Server extends BasicServer {
 
     private void bookIsBusyError(HttpExchange exchange, List<Book> bookList) {
         Map<String, Object> map = new HashMap<>();
-        map.put("books", bookList);
-        map.put("bookHistories", bookLender.getHistory());
-        map.put("users", bookLender.getUsers());
+        map.putAll(getBookList());
         map.put("error", true);
         map.put("message", "Невозможно получить книгу т.к она занята");
         renderTemplate(exchange, "books.ftlh", map);
@@ -159,9 +153,7 @@ public class Lesson44Server extends BasicServer {
 
     private void notAuthErrorHandler(HttpExchange exchange, List<Book> bookList) {
         Map<String, Object> map = new HashMap<>();
-        map.put("books", bookList);
-        map.put("users", bookLender.getUsers());
-        map.put("bookHistories", bookLender.getHistory());
+        map.putAll(getBookList());
         map.put("error", true);
         map.put("message", "Невозможно совершить действие без авторизации!");
         map.put("authError", true);

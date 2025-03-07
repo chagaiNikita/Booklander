@@ -13,6 +13,13 @@
       "login": "fsdfsfd@gmail.com",
       "email": "fsdfsfd@gmail.com",
       "password": "fsdfsfd@gmail.com"
+    },
+    {
+      "id": 3,
+      "fullName": "Alikhan",
+      "login": "somepo4ta@gmail.com",
+      "email": "somepo4ta@gmail.com",
+      "password": "somepo4ta@gmail.com"
     }
   ],
   "books": [
@@ -37,7 +44,7 @@
       "name": "Игра престолов",
       "author": "Джордж Мартин",
       "photo": "images/bookImages/Game_of_Thrones.jpg",
-      "status": "На месте",
+      "status": "Выдана",
       "description": "Игра престолов» (англ. A Game of Thrones) — роман в жанре фэнтези"
     }
   ],
@@ -87,6 +94,17 @@
       "userId": 1,
       "issueDate": "2025-03-07",
       "returnDate": "2025-03-07"
+    },
+    {
+      "bookId": 3,
+      "userId": 3,
+      "issueDate": "2025-03-07",
+      "returnDate": "2025-03-07"
+    },
+    {
+      "bookId": 3,
+      "userId": 3,
+      "issueDate": "2025-03-07"
     }
   ],
   "bookLimitOnEmployee": 2
