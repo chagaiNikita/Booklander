@@ -28,7 +28,7 @@
             <#if bookHistory.bookId == book.id>
                 <#list users as user>
                     <#if user.id == bookHistory.userId && !bookHistory.returnDate??>
-                        <#assign userName = user.email>
+                        <#assign userName = user.fullName>
                         <#assign issueDate = bookHistory.issueDate>
                     </#if>
                 <#else>

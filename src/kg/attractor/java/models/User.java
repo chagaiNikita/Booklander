@@ -74,11 +74,12 @@ public class User {
                 .collect(Collectors.toList());
     }
 
-    public User(int id, String login, String email, String password) {
+    public User(int id, String login, String email, String password, String fullName) {
         this.id = id;
         this.login = login;
         this.email = email;
         this.password = password;
+        this.fullName = fullName;
     }
 
 //    public User(int id, String fullName, List<Book> currentBooks, List<Book> pastBooks) {

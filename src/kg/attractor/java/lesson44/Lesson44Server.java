@@ -20,10 +20,7 @@ import kg.attractor.java.util.Utils;
 
 import java.io.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Lesson44Server extends BasicServer {
     private final static Configuration freemarker = initFreeMarker();
@@ -96,6 +93,8 @@ public class Lesson44Server extends BasicServer {
     private void booksError(HttpExchange exchange, String errorMessage, Boolean authError) {
         Map<String, Object> map = new HashMap<>();
         map.put("books", bookLender.getBooks());
+        map.put("bookHistories", bookLender.getHistory());
+        map.put("users", bookLender.getUsers());
         map.put("error", true);
         map.put("message", errorMessage);
         map.put("authError", authError);
@@ -136,7 +135,7 @@ public class Lesson44Server extends BasicServer {
     }
 
     private void addBookInCurrentBookList(HttpExchange exchange, Book book, User user) {
-        if (book.getStatus().equals(BookStatuses.ISSUED)) {
+        if (book.getStatus().equals(BookStatuses.ISSUED.getTitle())) {
             bookIsBusyError(exchange, bookLender.getBooks());
         } else {
             book.setStatus(BookStatuses.ISSUED.getTitle());
@@ -151,6 +150,8 @@ public class Lesson44Server extends BasicServer {
     private void bookIsBusyError(HttpExchange exchange, List<Book> bookList) {
         Map<String, Object> map = new HashMap<>();
         map.put("books", bookList);
+        map.put("bookHistories", bookLender.getHistory());
+        map.put("users", bookLender.getUsers());
         map.put("error", true);
         map.put("message", "Невозможно получить книгу т.к она занята");
         renderTemplate(exchange, "books.ftlh", map);
@@ -183,7 +184,7 @@ public class Lesson44Server extends BasicServer {
                 model.put("havePastBooks", true);
                 model.put("pastBooks", user.getPastBooks(bookLender));
             }
-            renderTemplate(exchange, "/profile.html", model);
+            renderTemplate(exchange, "/profile.ftlh", model);
         } else {
             String errorMessage = "Вы не были авторизованы";
             model.put("message", "error");
@@ -216,7 +217,7 @@ public class Lesson44Server extends BasicServer {
         String raw = getBody(exchange);
         Map<String, String> parsed = Utils.parseUrlEncoded(raw, "&");
         System.out.println("start 58");
-        User user = new User(getUniqueId(), parsed.get("login"), parsed.get("email"), parsed.get("user-password"));
+        User user = new User(getUniqueId(), parsed.get("login"), parsed.get("email"), parsed.get("user-password"), getRandomName());
         System.out.println("start 61");
         registerNewUser(user);
         setCookieCodeForUser(user);
@@ -311,7 +312,7 @@ public class Lesson44Server extends BasicServer {
             userCode.setMaxAge(600);
             userCode.setHttpOnly(true);
             setCookie(exchange, userCode);
-            renderTemplate(exchange, "/profile.html", model);
+            renderTemplate(exchange, "/profile.ftlh", model);
         }
     }
 
@@ -414,7 +415,22 @@ public class Lesson44Server extends BasicServer {
     }
 
     private int getUniqueId() {
+        if (bookLender.getUsers() == null || bookLender.getUsers().isEmpty()) {
+            return 1;
+        }
         return bookLender.getUsers().getLast().getId() + 1;
+    }
+
+    private String getRandomName() {
+        Random rnd = new Random();
+        List<String> names = new ArrayList<>();
+        names.add("Nikita");
+        names.add("Alikhan");
+        names.add("Sergey");
+        names.add("Some name");
+        names.add("Some name 2");
+
+        return names.get(rnd.nextInt(names.size()));
     }
 
 

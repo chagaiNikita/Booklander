@@ -2,15 +2,17 @@
   "users": [
     {
       "id": 1,
-      "login": "somepo4ta@gmail.com",
-      "email": "somepo4ta@gmail.com",
-      "password": "somepo4ta@gmail.com"
+      "fullName": "Nikita",
+      "login": "3qtwetw@gmail.com",
+      "email": "3qtwetw@gmail.com",
+      "password": "3qtwetw@gmail.com"
     },
     {
       "id": 2,
-      "login": "chagai.nikita@gmail.com",
-      "email": "chagai.nikita@gmail.com",
-      "password": "chagai.nikita@gmail.com"
+      "fullName": "Nikita",
+      "login": "fsdfsfd@gmail.com",
+      "email": "fsdfsfd@gmail.com",
+      "password": "fsdfsfd@gmail.com"
     }
   ],
   "books": [
@@ -19,7 +21,7 @@
       "name": "Война и мир",
       "author": "Лев Толстой",
       "photo": "images/0002-min-png.png",
-      "status": "На месте",
+      "status": "Выдана",
       "description": "Война и мир» — огромная сага"
     },
     {
@@ -27,7 +29,7 @@
       "name": "Колобок",
       "author": "Алексей Толстой",
       "photo": "images/0002-min-png.png",
-      "status": "На месте",
+      "status": "Выдана",
       "description": "Колобок описание"
     },
     {
@@ -42,49 +44,17 @@
   "history": [
     {
       "bookId": 1,
-      "userId": 0,
-      "issueDate": "2025-03-07",
-      "returnDate": "2025-03-07"
-    },
-    {
-      "bookId": 2,
-      "userId": 0,
-      "issueDate": "2025-03-07",
-      "returnDate": "2025-03-07"
-    },
-    {
-      "bookId": 1,
-      "userId": 0,
-      "issueDate": "2025-03-07",
-      "returnDate": "2025-03-07"
-    },
-    {
-      "bookId": 2,
-      "userId": 0,
-      "issueDate": "2025-03-07",
-      "returnDate": "2025-03-07"
-    },
-    {
-      "bookId": 1,
-      "userId": 0,
-      "issueDate": "2025-03-07",
-      "returnDate": "2025-03-07"
-    },
-    {
-      "bookId": 2,
-      "userId": 0,
-      "issueDate": "2025-03-07",
-      "returnDate": "2025-03-07"
-    },
-    {
-      "bookId": 1,
       "userId": 2,
-      "issueDate": "2025-03-07",
-      "returnDate": "2025-03-07"
+      "issueDate": "2025-03-07"
     },
     {
       "bookId": 2,
       "userId": 2,
+      "issueDate": "2025-03-07"
+    },
+    {
+      "bookId": 3,
+      "userId": 1,
       "issueDate": "2025-03-07",
       "returnDate": "2025-03-07"
     }
