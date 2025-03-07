@@ -342,7 +342,6 @@ public class Lesson44Server extends BasicServer {
     private void loginGet(HttpExchange exchange) {
         Map<String, String> buttonText = new HashMap<>();
         buttonText.put("buttonText", "Войти");
-//        buttonText.put("class", "email");
         buttonText.put("postLink", "/login");
         renderTemplate(exchange, "/auth/login.ftlh", buttonText);
     }
@@ -363,10 +362,16 @@ public class Lesson44Server extends BasicServer {
     }
 
     private void freemarkerSampleHandler(HttpExchange exchange) {
-        Object model = getModel(exchange);
-        renderTemplate(exchange, getFileNameHTML(exchange.getRequestURI().getPath()), model);
+        Map<String, Object> model = getModel(exchange);
+        String mapKey = model.keySet().iterator().next();
+        if (model == null || model.get(mapKey) == null) {
+            respond404(exchange);
+        } else {
+            renderTemplate(exchange, getFileNameHTML(exchange.getRequestURI().getPath()), model);
+        }
+
     }
-    private Object getModel(HttpExchange exchange) {
+    private Map<String, Object> getModel(HttpExchange exchange) {
         if (exchange.getRequestURI().getPath().equals("/book")) return getBookInfo(exchange);
         if (exchange.getRequestURI().getPath().equals("/employee")) return getEmployeeInfo(exchange);
         else return getBookList();
@@ -408,6 +413,7 @@ public class Lesson44Server extends BasicServer {
     }
 
     private Map<String, Object> getEmployeeInfo(HttpExchange exchange) {
+        Map<String, Object> employee = new HashMap<>();
         String query = getQueryParams(exchange);
         Map<String, String> params = Utils.parseUrlEncoded(query, "&");
         User user = null;
@@ -417,14 +423,18 @@ public class Lesson44Server extends BasicServer {
                 break;
             }
         }
-        Map<String, Object> employee = new HashMap<>();
+        if (user == null) {
+            employee.put("user", null);
+            return employee;
+        }
+
         employee.put("user", user);
         employee.put("currentBooks", user.getCurrentBooks(bookLender));
         employee.put("pastBooks", user.getPastBooks(bookLender));
         return employee;
     }
 
-    private Map<String, Book> getBookInfo(HttpExchange exchange) {
+    private Map<String, Object> getBookInfo(HttpExchange exchange) {
         String query = getQueryParams(exchange);
         Map<String, String> params = Utils.parseUrlEncoded(query, "&");
         Book book = null;
@@ -434,7 +444,7 @@ public class Lesson44Server extends BasicServer {
                 break;
             }
         }
-        Map<String, Book> f = new HashMap<>();
+        Map<String, Object> f = new HashMap<>();
         f.put("book", book);
 
         return f;
