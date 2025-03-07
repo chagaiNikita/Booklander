@@ -216,7 +216,7 @@ public class Lesson44Server extends BasicServer {
         String raw = getBody(exchange);
         Map<String, String> parsed = Utils.parseUrlEncoded(raw, "&");
         System.out.println("start 58");
-        User user = new User(parsed.get("login"), parsed.get("email"), parsed.get("user-password"));
+        User user = new User(getUniqueId(), parsed.get("login"), parsed.get("email"), parsed.get("user-password"));
         System.out.println("start 61");
         registerNewUser(user);
         setCookieCodeForUser(user);
@@ -398,7 +398,6 @@ public class Lesson44Server extends BasicServer {
     }
 
     private Map<String, Object> getBookList() {
-//        bookLender.setBooks(books);
         Map<String, Object> f = new HashMap<>();
         f.put("books", bookLender.getBooks());
         f.put("bookHistories", bookLender.getHistory());
@@ -412,6 +411,10 @@ public class Lesson44Server extends BasicServer {
         f.put("book", bookLender.getBooks().get(0));
 
         return f;
+    }
+
+    private int getUniqueId() {
+        return bookLender.getUsers().getLast().getId() + 1;
     }
 
 

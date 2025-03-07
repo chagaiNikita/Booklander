@@ -1,6 +1,5 @@
 package kg.attractor.java.models;
 
-import java.time.LocalDate;
 import java.util.Objects;
 
 public class Book {
@@ -10,7 +9,6 @@ public class Book {
     private String photo;
     private String status;
     private String description;
-    private String link;
 
     public void setStatus(String status) {
         this.status = status;
@@ -53,15 +51,11 @@ public class Book {
         return Objects.hash(name, author);
     }
 
-    public String getLink() {
-        return link;
-    }
 
-    public Book(int id, String name, String photo, String author, String status, String link, String description) {
+    public Book(int id, String name, String photo, String author, String status, String description) {
         this.id = id;
         this.name = name;
         this.author = author;
-        this.link = link;
         this.status = status;
         this.photo = photo;
         this.description = description;

@@ -1,10 +1,16 @@
 {
   "users": [
     {
-      "id": 0,
+      "id": 1,
       "login": "somepo4ta@gmail.com",
       "email": "somepo4ta@gmail.com",
       "password": "somepo4ta@gmail.com"
+    },
+    {
+      "id": 2,
+      "login": "chagai.nikita@gmail.com",
+      "email": "chagai.nikita@gmail.com",
+      "password": "chagai.nikita@gmail.com"
     }
   ],
   "books": [
@@ -14,8 +20,7 @@
       "author": "Лев Толстой",
       "photo": "images/0002-min-png.png",
       "status": "На месте",
-      "description": "Война и мир» — огромная сага",
-      "link": "book"
+      "description": "Война и мир» — огромная сага"
     },
     {
       "id": 2,
@@ -23,8 +28,7 @@
       "author": "Алексей Толстой",
       "photo": "images/0002-min-png.png",
       "status": "На месте",
-      "description": "Колобок описание",
-      "link": "book"
+      "description": "Колобок описание"
     },
     {
       "id": 3,
@@ -32,8 +36,7 @@
       "author": "Джордж Мартин",
       "photo": "images/0002-min-png.png",
       "status": "На месте",
-      "description": "Игра престолов» (англ. A Game of Thrones) — роман в жанре фэнтези",
-      "link": "book"
+      "description": "Игра престолов» (англ. A Game of Thrones) — роман в жанре фэнтези"
     }
   ],
   "history": [
@@ -70,6 +73,18 @@
     {
       "bookId": 2,
       "userId": 0,
+      "issueDate": "2025-03-07",
+      "returnDate": "2025-03-07"
+    },
+    {
+      "bookId": 1,
+      "userId": 2,
+      "issueDate": "2025-03-07",
+      "returnDate": "2025-03-07"
+    },
+    {
+      "bookId": 2,
+      "userId": 2,
       "issueDate": "2025-03-07",
       "returnDate": "2025-03-07"
     }

@@ -74,7 +74,8 @@ public class User {
                 .collect(Collectors.toList());
     }
 
-    public User(String login, String email, String password) {
+    public User(int id, String login, String email, String password) {
+        this.id = id;
         this.login = login;
         this.email = email;
         this.password = password;
